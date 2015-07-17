@@ -8,10 +8,45 @@
 
 <link rel = "stylesheet" href = "stylePage.css">
 
-<script type = "text/javascript" src = "jquery-1.11.3.js"></script>
-
 <script>
-	
+    
+    //Funtion to display the different tables selected in Task Queue Split table
+    function task_table_selected()
+    {
+    	var sumOfAllTableSelected = document.getElementById("taskCountTableButton").checked;
+        var taskSplitByAgeTableSelected = document.getElementById("taskByAgeTableButton").checked;
+        var ownerByTaskAgeTableButton = document.getElementById("ownerByTaskAgeTableButton").checked;
+        
+        var table1 = document.getElementById("taskCountDiv");
+        var table2 = document.getElementById("taskByAgeDiv");
+        var table3 = document.getElementById("ownerByTaskAgeDiv");
+        
+        var taskCountRow = document.getElementById("taskCountTableOuterTableRow");
+        var taskByAgeRow = document.getElementById("taskByAgeTableOuterTableRow");
+        var ownerByAgeRow = document.getElementById("ownerByTaskAgeTableOuterTableRow");
+        
+                
+        if(sumOfAllTableSelected == true && taskSplitByAgeTableSelected == false && ownerByTaskAgeTableButton == false)
+        {
+            table1.style.display = 'block';
+            table2.style.display = 'none'; 
+            table3.style.display = 'none';
+        }
+        else if(sumOfAllTableSelected == false && taskSplitByAgeTableSelected == true && ownerByTaskAgeTableButton == false)
+        {
+            table1.style.display = 'none';
+            table2.style.display = 'block'; 
+            table3.style.display = 'none';
+      	}
+        else
+        {
+            table1.style.display = 'none';
+            table2.style.display = 'none';
+            table3.style.display = 'block';
+   		}  
+    }
+    
+    
     function showHideLinkOnClickFunction()
     {	
     	var showHideTable = document.getElementById("quickStatisticsTable");
@@ -50,97 +85,32 @@
             table1.style.display = 'block';
             table2.style.display = 'none'; 
             table3.style.display = 'none';
-            console.log("beforesc main script");
-          //  displayTasksSC();
-            console.log("aftersc main script");
+            console.log("before");
+            displayTasksSC();
+            console.log("after");
         }
         else if(table1Selected == false && table2Selected == false && table3Selected == true)
         {
             table1.style.display = 'none';
             table2.style.display = 'none';
             table3.style.display = 'block';
-            console.log("ccbefore main script");
-          //  displayTasksCC();
-            console.log("ccafter main script");
+            console.log("ccbefore");
+            displayTasksCC();
+            console.log("ccafter");
         }
         else
         {
             table1.style.display = 'none';
             table2.style.display = 'block';
             table3.style.display = 'none';
-            console.log("sprbefore main script");
-         //   displayTasksSPR();
-            console.log("sprafter main script ");
             
         }
            
     }
-    
-    /*
-	function one()
-	{
-		displayTaskCount();
-	}
-	
-	function two()
-	{
-		displayTasksCC();
-	}
-	
-	
-	window.onload = function three() {
-		one();
-		two();
-	};
-	*/
-    
-    //Funtion to display the different tables selected in Task Queue Split table
-    function task_table_selected()
-    {
-    	var sumOfAllTableSelected = document.getElementById("taskCountTableButton").checked;
-        var taskSplitByAgeTableSelected = document.getElementById("taskByAgeTableButton").checked;
-        var ownerByTaskAgeTableButton = document.getElementById("ownerByTaskAgeTableButton").checked;
-        
-        var table1 = document.getElementById("taskCountDiv");
-        var table2 = document.getElementById("taskByAgeDiv");
-        var table3 = document.getElementById("ownerByTaskAgeDiv");
-                
-        if(sumOfAllTableSelected == true && taskSplitByAgeTableSelected == false && ownerByTaskAgeTableButton == false)
-        {
-            table1.style.display = 'block';
-            table2.style.display = 'none'; 
-            table3.style.display = 'none';
-            console.log("before taskCount");
-            //displayTaskCount();
-            console.log("after taskCount");
-        }
-        else if(sumOfAllTableSelected == false && taskSplitByAgeTableSelected == true && ownerByTaskAgeTableButton == false)
-        {
-            table1.style.display = 'none';
-            table2.style.display = 'block'; 
-            table3.style.display = 'none';
-            console.log("before taskByAge");
-            //displayTaskByAge();
-            console.log("after taskByAge");
-      	}
-        else
-        {
-            table1.style.display = 'none';
-            table2.style.display = 'none';
-            table3.style.display = 'block';
-   		}  
-    }
-/*
-   	function e() 
-   	{
-   		displayTaskCount();
-   		displayTasksCC();
-   	}
 
-	window.onload = e;
-   
-	
-	*/
+   	window.onload = function e(){
+   		displayTasksCC();
+   	};
 </script>
 
 </head>
@@ -171,47 +141,11 @@
 	<tr> 
 		<td  colspan=3 align = left bgcolor = "#FFF0E0" valign = center > <jsp:include page="h7_main.jsp" /></td>
 	</tr>	
-	    
-	<tr>
-		<td>
-			<div id = "overallStatisticsDataChartDIV">
-				<table id = "overallStatisticsDataChartTable">
-					<tr>
-						<td>
-							<p style = "font-size: 20pt; text-align: center;">Interactive Chart Under Construction</p>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</td>
-	</tr>
 	
 	<tr> 
 		<td colspan=3 align = left bgcolor = "#FFF0E0" valign = center > <jsp:include page="pdox_times.jsp" /></td>
 	</tr> 
-	
-	<!-- 
-	<tr>
-		<td colspan = 3 style = "background-color: #FFF0E0" valign = center">
-			<div id = "navigationMenuDIV">
-				<table id = "navigationMenuTable">
-					<tr>
-						<td>
-							<ul id = "navigationMenuUL">
-								<li class = "navigationMenuLI"><a href = "#" title = "All">All</a></li>
-								<li class = "navigationMenuLI"><a href = "#" title = "Regular SPR">Regular SPR</a></li>
-								<li class = "navigationMenuLI"><a href = "#" title = "Self Cert">Self Cert</a></li>
-								<li class = "navigationMenuLI"><a href = "#" title = "Task Count">Task Count</a></li>
-								<li class = "navigationMenuLI"><a href = "#" title = "Task By Age">Task By Age</a></li>
-								<li class = "navigationMenuLI"><a href = "#" title = "Owner By Task Age">Owner By Task Age</a></li>
-							</ul>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</td>
-	</tr>
- -->
+
 	<tr style = "background-color: #FFF0E0;">
 		<td>
 			<p style = "text-align: center;">

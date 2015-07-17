@@ -13,34 +13,35 @@ var t;
 
 function displayTasksSC() 
 {
-	console.log("Entering displayTasksSC()");
-	document.getElementById("selfCertAverageTimesDiv").innerHTML = null;
+console.log("inside displayTasksSC()");
+	//document.getElementById("selfCertAverageTimesDiv").innerHTML = null;
 		
-	 adtHttp = GetXmlHttpObject();
-	 
-	if (adtHttp == null) 
-	{
+		 adtHttp = GetXmlHttpObject();
+		 
+
+		 
+		if (adtHttp == null) {
 		  alert ("Browser does not support HTTP Request");
-		  return;
-	} 
-	
-	var url = "selfcertT2P_JSON.jsp";
-	adtHttp.onreadystatechange = T2PSCstateChanged;
-	adtHttp.open("GET",url,true);
-	adtHttp.send(null);
-	console.log("Exiting displayTasksSC()");
-}
+		  return;} 
+		
+		 var url = "selfcertT2P_JSON.jsp";
+		 adtHttp.onreadystatechange = T2PSCstateChanged;
+		 adtHttp.open("GET",url,true);
+		 adtHttp.send(null);
+
+ 
+ }
  
 
 
-function T2PSCstateChanged() 
-{ 
-	console.log("Entering T2PSCstateChanged()");
+function T2PSCstateChanged() { 
+	
+	console.log("T2PSC State changed!!");
 	if (adtHttp.readyState == 4 || adtHttp.readyState=="complete") {
 
 		var at = eval('(' + adtHttp.responseText + ')');
 		var ctl = at.t2psc.length;		
-		var t2p_sc = 0.00;
+		var t2p_sc = 0;
 
 		var contentString = "<table id = 'selfCertAverageTimesTable' bgcolor='99CCFF' border = 'show' CELLPADDING='0' CELLSPACING='0' valign = 'top' align = 'center'>" + 
 				"<tr><td colspan = 4 align=center><b>Self Cert Average Times</b></td></tr><tr style = 'background-color: #333333; color: white;'><td><b>Task</b></td><td><b>Avg Time</b></td><td><b>NumProjects</b></td><td><b>T2P</b></td></tr>";
@@ -90,12 +91,44 @@ function T2PSCstateChanged()
     	       	    
     	    contentString = contentString + "</td><td>"+at.t2psc[i].avgtm+"</td><td>" +at.t2psc[i].ct+"</td> <td>"+at.t2psc[i].t2p+"</td></tr>";
 			
-    	    t2p_sc = Number.parseFloat(t2p_sc) + Number.parseFloat(at.t2psc[i].t2p); 
-    	      
-		}		
+    	    t2p_sc = Number.parseFloat(t2p_sc) + Number.parseInt(at.t2psc[i].t2p); 
+    	    console.log(at.t2psc[i].t2p);
+    	    console.log("KKK: " + t2p_sc);
+    	    
+		}
+		console.log(t2p_sc);
 		document.getElementById("selfCertAverageTimesDiv").innerHTML = contentString + "	<tr><td colspan=4 bgcolor='1E90FF'> Self Cert Time to Permit :" + Math.round(t2p_sc) + " days</td> </tr></table>";
+	
  	}
-	console.log("Exiting T2PSCstateChanged()");
 }
 
-</script>
+function GetXmlHttpObject()
+{
+var xmlHttp=null;
+try
+  {
+  // Firefox, Opera 8.0+, Safari
+  xmlHttp=new XMLHttpRequest();
+  }
+catch (e)
+  {
+  // Internet Explorer
+  try
+    {
+    xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+    }
+  catch (e)
+    {
+    xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  }
+return xmlHttp;
+} 
+
+
+
+
+
+
+
+    </script>

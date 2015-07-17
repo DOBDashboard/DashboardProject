@@ -54,12 +54,8 @@ int ctr = col.length; %>
 		
 		<%for (int j = 0; j < ctr; j++) 
 		{ 	
-			if(col[j][6].equalsIgnoreCase("Applicant")) // if the groupName is "Applicant"
+			if(col[j][6].equalsIgnoreCase("Applicant"))
 			{
-				if(col[j][9] != null)
-				{
-					sumOfCompletedDays = Integer.parseInt(col[j][9]) + sumOfCompletedDays;
-				}
 		%>
 			<tr style = "background-color: #1E90FF;">
 				 <td><%=col[j][1]%> </td>
@@ -73,50 +69,14 @@ int ctr = col.length; %>
 				 <td><%=col[j][9]%> </td>
 			</tr>
 		<%
-			}
-			else if(col[j][3].equalsIgnoreCase("Pending")) // if the TaskStatus is "Pending"
-			{
-		%>
-			<tr style = "color: #FF8080;">
-				 <td><%=col[j][1]%> </td>
-				 <td><%=col[j][2]%></td>
-				 <td><%=col[j][3]%></td>
-				 <td><%=col[j][4]%></td>
-				 <td><%=col[j][5]%> </td>
-				 <td><%=col[j][6]%></td>
-				 <td><%=col[j][7]%></td>
-				 <td><%=col[j][8]%></td>
-				 <td><%=col[j][9]%> </td>
-			</tr>
-		<%
 			} 
-			else if(col[j][1].toLowerCase().contains("zoning"))
+			else 
 			{
-		%>
+				if(col[j][9] != null)
+				{
+					sumOfCompletedDays = Integer.parseInt(col[j][9]) + sumOfCompletedDays;
+				}
 			
-				<tr style = "background-color: black;">
-					<td colspan = 10>.</td>
-				</tr>
-				
-				<tr style = "background-color: black;">
-					<td colspan = 10 style = "color: white; text-aling: center;">Zoning</td>
-				</tr>
-				
-				<tr>
-					<td><%=col[j][1]%> </td>
-					<td><%=col[j][2]%></td>
-					<td><%=col[j][3]%></td>
-					<td><%=col[j][4]%></td>
-					<td><%=col[j][5]%> </td>
-					<td><%=col[j][6]%></td>
-					<td><%=col[j][7]%></td>
-					<td><%=col[j][8]%></td>
-					<td><%=col[j][9]%></td>
-				</tr>
-		<%
-			}
-			else // everything else 
-			{
 		%>
 		
 			<tr>
@@ -134,7 +94,7 @@ int ctr = col.length; %>
 		<%}%>
 
 		<tr style = "text-align: right; background-color: gray;">
-			<td colspan = 9>Applicant's Total Days Completed: <b><%=sumOfCompletedDays%></b></td>
+			<td colspan = 9>Total Days Completed: <b><%=sumOfCompletedDays%></b></td>
 		</tr>
 
 	</table>

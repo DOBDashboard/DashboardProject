@@ -426,7 +426,7 @@ String ownerTask[][] = dashboard.DatabaseManager.getQueueOwnerByTaskAge();
 								out.println(queueAge[i][0]);
 							}
 						} 
-						%>                                                                                                                        
+						%>  
 						</td> 
 						
 						<td><%if (queueAge[i][1] !=null) {out.println(queueAge[i][1]);} %></td>

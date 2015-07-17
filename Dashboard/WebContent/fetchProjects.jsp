@@ -14,7 +14,6 @@ var adtmarker1;
 
 function displayPrjs(task, age) 
 {
-	console.log("Entering displayPrjs()");
 	document.getElementById("msgBoard").innerHTML = null;
 		
 	adtHttp = GetXmlHttpObject();
@@ -29,14 +28,11 @@ function displayPrjs(task, age)
 	 adtHttp.onreadystatechange = ADTstateChanged;
 	 adtHttp.open("GET",url,true);
 	 adtHttp.send(null);
-	 
-	console.log("Exiting displayPrjs()");
+
 }
 
 function displayPrjsOwnerGroupTask(task, age) 
 {
-	console.log("Entering displayPrjsOwnerGroupTask()");
-
 	document.getElementById("msgBoard").innerHTML = null;
 		
 	adtHttp = GetXmlHttpObject();
@@ -52,35 +48,35 @@ function displayPrjsOwnerGroupTask(task, age)
 	 adtHttp.open("GET",url,true);
 	 adtHttp.send(null);
 	 
-	console.log("Exitng displayPrjsOwnerGroupTask()");
+	 console.log("check this1");
 }
 
 function displayPrjsOwnerIndividualTask(task, age)
 {
-	console.log("Entering displayPrjsOwnerIndividualTask()");
-
 	document.getElementById("msgBoard").innerHTML = null;
 	
 	adtHttp = GetXmlHttpObject();
+		 
 
+		 
 	if (adtHttp == null) 
 	{
-		  alert ("Browser does not support HTTP Request");
-		  return;
-	} 
+	  alert ("Browser does not support HTTP Request");
+	  return;
+	 } 
+	
+	
 	
 	 var url="OwnerTaskIndividualProjects.jsp?tname="+task+"&range="+age;
 	 adtHttp.onreadystatechange = ADTstateChanged;
 	 adtHttp.open("GET",url,true);
 	 adtHttp.send(null);
 	 
-	console.log("Exiting displayPrjsOwnerIndividualTask()");
+	 console.log("check this2");	
 }
 
 function searchProject(task) 
 {
-	console.log("Entering searchProject()");
-
 	document.getElementById("msgBoard").innerHTML = null;
 		
 	adtHttp = GetXmlHttpObject();
@@ -96,40 +92,34 @@ function searchProject(task)
 	 adtHttp.open("GET",url,true);
 	 adtHttp.send(null);
 	 
-	console.log("Exiting searchProject()");
+	 console.log(task + "HI");
 }
 
 function ADTstateChanged() 
 { 	
-	console.log("Entering ADTstateChanged()");
-	var headerString;
 	if (adtHttp.readyState == 4 || adtHttp.readyState=="complete")
 	{
 		var at = eval('(' + adtHttp.responseText + ')');
 		var ctl = at.tap.length;
-		var counter = 0;
-		
-		console.log("INSIDE ADTstateChanged() of loop");
+	
+		t = 0;
 	
 		for (i=0; i <ctl; i++ ) 
 		{ 
 			var contentString;
-      		
-			//str1.toLowerCase().contains(str2.toLowerCase())
-      		//if(i == 0 && at.tap[0].HeaderName == "Search Project" && at.tap[0].Name == at.tap[0].SearchName)
-			if(i == 0 && at.tap[0].HeaderName == "Search Project" && at.tap[0].Name.includes(at.tap[0].SearchName))
-      		{
+      		console.log("INSIDE ADTSTATE CHANGED()");
+			
+      		if(i == 0 && at.tap[0].HeaderName == "Search Project" && at.tap[0].Name == at.tap[0].SearchName)
+			{
       			document.getElementById("msgBoard").style.backgroundColor = '#33CCFF';
       			
-      			contentString = '<a href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
-          		contentString = contentString + '</a><br>';
-          		
-          		counter++;
-          		
-      			headingString = "<p style = 'text-align: center;'><b>" + counter + " Match found!</b></p>>"; 
-      			document.getElementById("msgBoard").innerHTML = headingString + contentString;
+      			document.getElementById("msgBoard").innerHTML = document.getElementById("msgBoard").innerHTML + 
+   						'<p style = "text-align: center; font-size:8pt;" ><b>Found Match!</b></p>';	
       			
-				break;
+				contentString = '<a href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
+          		document.getElementById("msgBoard").innerHTML = document.getElementById("msgBoard").innerHTML + contentString + '</a><br>';
+          		break;
+					
 			}
       		else if(i == 0 && at.tap[0].HeaderName == "Search Project" && at.tap[0].Name != at.tap[0].SearchName)
    			{
@@ -162,10 +152,7 @@ function ADTstateChanged()
 		   		document.getElementById("msgBoard").innerHTML = document.getElementById("msgBoard").innerHTML + contentString + '</a><br>';
 			}
 		}
-		
-		
 	}
-	console.log("Exiting ADTstateChanged()");
 }
 
 function GetXmlHttpObject()

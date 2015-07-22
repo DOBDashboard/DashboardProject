@@ -76,7 +76,7 @@ String date2=st2.nextToken();
 </div>
 
 <div id = "searchProjectsDIV">
-<form>
+<form onsubmit = "displaySearchResult(); return false">
 	<table id = "searchProjectsTable" >
 		<tr>
 			<td valign=top CELLSPACING = "0" CELLPADDING = "0">
@@ -84,7 +84,7 @@ String date2=st2.nextToken();
 					<p style = "font-size: 12px; color: white;"><b>Project Lookup</b></p> 
 					<input id = "searchThisForUserInputId"type = "text" value = "" style = "width: 100%;">
 					<br>
-					<input type = "button" value = "Search" onclick = "displaySearchResult()">
+					<input type = "button" value = "Search" onclick = "displaySearchResult()" tabIndex = "-1">
 			</td>
 		</tr>
 	</table>

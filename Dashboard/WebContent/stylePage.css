@@ -7,7 +7,7 @@
 		background-attachment: fixed;
 		background-size: cover;
 	}
-
+           
 	#mainBackgroundTable
 	{
 		width : 1100px;	
@@ -57,8 +57,8 @@
 	#searchProjectsDIV
 	{
 		float:left;
-		padding-left: 3px;
-		padding-right:5px;
+		padding-left: 5px;
+		padding-right:3px;
 	}
 	
 	#searchProjectsTable
@@ -70,6 +70,23 @@
 		padding-right: 5px;
 		padding-bottom: 2px;
 		
+		background-color: #33CCFF;
+	}
+	
+	#overallStatisticsDataChartDIV
+	{
+		padding-left: 5px;
+		padding-right: 3px;
+		
+		
+	}
+	
+	#overallStatisticsDataChartTable
+	{
+		width: 1075px;
+		height: 200px;
+		outline: thin solid;
+		padding-right: 5px;
 		background-color: #33CCFF;
 	}
 	
@@ -95,16 +112,16 @@
    	{
    		float: left;
    		padding-left: 2px;
-   		padding-right: 1px;
+   		padding-right: 0px;
    		padding-top: 15px;
    		display: block;	
    	}
 	
 	#messageBoardTable
 	{
-	    width: 250px;
+	    width: 240px;
 	    height : 625px;
-	 	padding-left: 5px;
+	 	padding-left: 3px;
 		padding-right: 1px;		
 	}
 	
@@ -121,10 +138,10 @@
 	    width: 425px;
 	    height : 625px;
 	 	padding-left: 5px;
-		padding-right: 5px;
+		padding-right: 2px;
 	
 	}
-
+	
 	#messageBoardTableScrollDIV
    	{
    		height: 100%;
@@ -178,9 +195,6 @@
 		padding-top: 15px;
    		bgcolor: 99CCFF;
    		height: 100%;
-   		overflow-y: scroll;
-   		
-   		
 	}
 	
 	#taskByAgeTable
@@ -188,7 +202,7 @@
 		background-color: #CCFFCC;
 		border: 1px solid black;
 	}
-	
+
 	#taskByAgeTable td
 	{
 		border: 1px solid black;
@@ -198,11 +212,36 @@
 	{
 		background-color: #B2FFFF;
 		border: 1px solid black;
+		width: 100%;
+		height: 100%;
+		display:column;
 	}
 	
 	#ownerByTaskAgeTable td
 	{
 		border: 1px solid black;
+	}
+	
+	#ownerByTaskAgeTable th
+	{
+		border: 1px solid black; 
+	}
+	
+	#ownerByTaskAgeTable thead
+	{
+		display: inline-block;
+    	width: 100%;
+    	
+		
+	}
+	
+	#ownerByTaskAgeTable tbody
+	{
+		 height: 480px;
+   	 	 display: inline-block;
+    	 width: 100%;
+    	 overflow-y: auto;
+    	 
 	}
 	
 	#taskCountTable
@@ -247,3 +286,4 @@
 	{
 		background-color: white;
 	}
+

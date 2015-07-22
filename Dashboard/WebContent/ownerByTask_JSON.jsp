@@ -15,9 +15,10 @@ Used for the loading the results seamlessly to the the DIV in the dashboard main
 
 <%
 
-
-     String col[][] =  DatabaseManager.getQueueOwnerByTaskAge(); 
+	
+String col[][] =  DatabaseManager.getQueueOwnerByTaskAge(); 
 int ctr = col.length; %>
+
 
 <%out.println ("{"); %>
 "ownerByTask": [

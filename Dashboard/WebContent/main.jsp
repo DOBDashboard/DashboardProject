@@ -8,45 +8,11 @@
 
 <link rel = "stylesheet" href = "stylePage.css">
 
+<script type = "text/javascript" src = "jquery-1.11.3.js"></script>
+<script src="Chart.js"></script>
+<script type = "text/javascript" src = "legend.js"></script>
 <script>
-    
-    //Funtion to display the different tables selected in Task Queue Split table
-    function task_table_selected()
-    {
-    	var sumOfAllTableSelected = document.getElementById("taskCountTableButton").checked;
-        var taskSplitByAgeTableSelected = document.getElementById("taskByAgeTableButton").checked;
-        var ownerByTaskAgeTableButton = document.getElementById("ownerByTaskAgeTableButton").checked;
-        
-        var table1 = document.getElementById("taskCountDiv");
-        var table2 = document.getElementById("taskByAgeDiv");
-        var table3 = document.getElementById("ownerByTaskAgeDiv");
-        
-        var taskCountRow = document.getElementById("taskCountTableOuterTableRow");
-        var taskByAgeRow = document.getElementById("taskByAgeTableOuterTableRow");
-        var ownerByAgeRow = document.getElementById("ownerByTaskAgeTableOuterTableRow");
-        
-                
-        if(sumOfAllTableSelected == true && taskSplitByAgeTableSelected == false && ownerByTaskAgeTableButton == false)
-        {
-            table1.style.display = 'block';
-            table2.style.display = 'none'; 
-            table3.style.display = 'none';
-        }
-        else if(sumOfAllTableSelected == false && taskSplitByAgeTableSelected == true && ownerByTaskAgeTableButton == false)
-        {
-            table1.style.display = 'none';
-            table2.style.display = 'block'; 
-            table3.style.display = 'none';
-      	}
-        else
-        {
-            table1.style.display = 'none';
-            table2.style.display = 'none';
-            table3.style.display = 'block';
-   		}  
-    }
-    
-    
+	
     function showHideLinkOnClickFunction()
     {	
     	var showHideTable = document.getElementById("quickStatisticsTable");
@@ -85,34 +51,72 @@
             table1.style.display = 'block';
             table2.style.display = 'none'; 
             table3.style.display = 'none';
-            console.log("before");
-            displayTasksSC();
-            console.log("after");
+            console.log("beforesc main script");
+          //  displayTasksSC();
+            console.log("aftersc main script");
         }
         else if(table1Selected == false && table2Selected == false && table3Selected == true)
         {
             table1.style.display = 'none';
             table2.style.display = 'none';
             table3.style.display = 'block';
-            console.log("ccbefore");
-            displayTasksCC();
-            console.log("ccafter");
+            console.log("ccbefore main script");
+          //  displayTasksCC();
+            console.log("ccafter main script");
         }
         else
         {
             table1.style.display = 'none';
             table2.style.display = 'block';
             table3.style.display = 'none';
+            console.log("sprbefore main script");
+         //   displayTasksSPR();
+            console.log("sprafter main script ");
             
         }
            
     }
+    
 
-   	window.onload = function e(){
-   		displayTasksCC();
-   	};
+    //Funtion to display the different tables selected in Task Queue Split table
+    function task_table_selected()
+    {
+    	var sumOfAllTableSelected = document.getElementById("taskCountTableButton").checked;
+        var taskSplitByAgeTableSelected = document.getElementById("taskByAgeTableButton").checked;
+        var ownerByTaskAgeTableButton = document.getElementById("ownerByTaskAgeTableButton").checked;
+        
+        var table1 = document.getElementById("taskCountDiv");
+        var table2 = document.getElementById("taskByAgeDiv");
+        var table3 = document.getElementById("ownerByTaskAgeDiv");
+                
+        if(sumOfAllTableSelected == true && taskSplitByAgeTableSelected == false && ownerByTaskAgeTableButton == false)
+        {
+            table1.style.display = 'block';
+            table2.style.display = 'none'; 
+            table3.style.display = 'none';
+            console.log("before taskCount");
+            //displayTaskCount();
+            console.log("after taskCount");
+        }
+        else if(sumOfAllTableSelected == false && taskSplitByAgeTableSelected == true && ownerByTaskAgeTableButton == false)
+        {
+            table1.style.display = 'none';
+            table2.style.display = 'block'; 
+            table3.style.display = 'none';
+            console.log("before taskByAge");
+            //displayTaskByAge();
+            console.log("after taskByAge");
+      	}
+        else
+        {
+            table1.style.display = 'none';
+            table2.style.display = 'none';
+            table3.style.display = 'block';
+   		}  
+    }
+	
+
 </script>
-
 </head>
 
 <body>
@@ -141,10 +145,18 @@
 	<tr> 
 		<td  colspan=3 align = left bgcolor = "#FFF0E0" valign = center > <jsp:include page="h7_main.jsp" /></td>
 	</tr>	
+	    
+	<tr>
+
+		<td  colspan=3 align = left bgcolor = "#FFF0E0" valign = center > <jsp:include page="main_charts.jsp" /></td>
+	<tr>		
+			
+	</tr>
 	
 	<tr> 
 		<td colspan=3 align = left bgcolor = "#FFF0E0" valign = center > <jsp:include page="pdox_times.jsp" /></td>
 	</tr> 
+	
 
 	<tr style = "background-color: #FFF0E0;">
 		<td>
@@ -156,7 +168,21 @@
 	</tr>
 </table>
 </div>
-
+	<script>
+	window.onload = function(){
+		var ctx = document.getElementById("canvas").getContext("2d");
+		window.myLine = new Chart(ctx).Line(lineChartData, {
+			responsive : true
+		});
+		
+		legend(document.getElementById('legendDiv'), ctx);
+	}
+	
+	$(document).ready(function() {
+		   
+		   $('#table3Button').click();
+		});	
+	</script>
 </body>
 
 </html>

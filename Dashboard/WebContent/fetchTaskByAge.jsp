@@ -3,7 +3,7 @@
 
 --%>
 
-<head>
+
 	
 <script type="text/javascript">
 
@@ -59,23 +59,37 @@ function TaskByAgeStateChanged()
 
     	    if(at.taskByAge[i].taskname.toUpperCase() === ("CertifiedCorrectionsResubmittalReview").toUpperCase())
 			{
-    	    	contentString = contentString + "Cert. Corr. Resub. Review";
+    	    	//contentString = contentString + "Cert. Corr. Resub. Review"; 
+    	    	contentString = contentString + 
+				"<label onmouseover='' style='cursor: pointer;'  onClick= 'displayTaskAgeUserSplit(\"" + at.taskByAge[i].taskname +"\");' value='" +
+				at.taskByAge[i].taskname + "'> Cert. Corr. Resub. Review </label>";
 			}    	    
 			else if(at.taskByAge[i].taskname.toUpperCase() === ("CertifiedCorrectionsReview").toUpperCase())
 			{
-				contentString = contentString +"Cert. Corr. Review";
+				//contentString = contentString +"Cert. Corr. Review";
+				contentString = contentString + 
+				"<label  onmouseover='' style='cursor: pointer;'  onClick= 'displayTaskAgeUserSplit(\"" + at.taskByAge[i].taskname +"\");' value='" +
+				at.taskByAge[i].taskname + "'> Cert. Corr. Review </label>";
 			}
 			else if(at.taskByAge[i].taskname.toUpperCase() === ("PrescreenResubmittalReview").toUpperCase())
 			{
-				contentString = contentString +"Prescrn Resubm. Review";
+				//contentString = contentString +"Prescrn Resubm. Review";
+				contentString = contentString + 
+				"<label  onmouseover='' style='cursor: pointer;'  onClick= 'displayTaskAgeUserSplit(\"" + at.taskByAge[i].taskname +"\");' value='" +
+				at.taskByAge[i].taskname + "'> Prescrn Resubm. Review </label>";
 			}
 			else if(at.taskByAge[i].taskname.toUpperCase() === ("SelfCertificationResubmit").toUpperCase())
 			{
-				contentString = contentString + "Self Cert. Resubm.";
+				//contentString = contentString + "Self Cert. Resubm.";
+				contentString = contentString + 
+				"<label  onmouseover='' style='cursor: pointer;'  onClick= 'displayTaskAgeUserSplit(\"" + at.taskByAge[i].taskname +"\");' value='" +
+				at.taskByAge[i].taskname + "'> Self Cert. Resubm. </label>";
 			}
 			else
 			{
-				contentString = contentString + at.taskByAge[i].taskname;
+				contentString = contentString + 
+				"<label  onmouseover='' style='cursor: pointer;'  onClick= 'displayTaskAgeUserSplit(\"" + at.taskByAge[i].taskname +"\");' value='" +
+				at.taskByAge[i].taskname + "'>" + at.taskByAge[i].taskname + "</label>";
 			}
     	       	    
     	    contentString = contentString + "</td><td>" + at.taskByAge[i].ct;
@@ -86,7 +100,7 @@ function TaskByAgeStateChanged()
     	    if(at.taskByAge[i].zeroTo4 != "null")
   	    	{
   	    		contentString = contentString + 
-  	    				"<label  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
+  	    				"<label  onmouseover='' style='cursor: pointer;'  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
   	    				"\", \"0-4\");' value='" +
   	    				at.taskByAge[i].zeroTo4 + "'>" + at.taskByAge[i].zeroTo4 + "</label>"; 
   	    	}
@@ -96,7 +110,7 @@ function TaskByAgeStateChanged()
     	    if(at.taskByAge[i].fiveTo10 != "null")
     	    {
     	    	contentString = contentString + 
-  				"<label  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
+  				"<label  onmouseover='' style='cursor: pointer;'  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
   				"\", \"5-10\");' value='" +
   				at.taskByAge[i].fiveTo10 + "'>" + at.taskByAge[i].fiveTo10+ "</label>"; 
   	    	}
@@ -106,7 +120,7 @@ function TaskByAgeStateChanged()
     	    if(at.taskByAge[i].elevenTo15 != "null")
     	    {
     	    	contentString = contentString + 
-  				"<label  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
+  				"<label  onmouseover='' style='cursor: pointer;'  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
   				"\", \"11-15\");' value='" +
   				at.taskByAge[i].elevenTo15 + "'>" + at.taskByAge[i].elevenTo15+ "</label>";
   			}
@@ -116,7 +130,7 @@ function TaskByAgeStateChanged()
     	    if(at.taskByAge[i].sixteenTo20 != "null")
     	    {
     	    	contentString = contentString + 
-  				"<label  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
+  				"<label  onmouseover='' style='cursor: pointer;'  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
   				"\", \"16-20\");' value='" +
   				at.taskByAge[i].sixteenTo20 + "'>" + at.taskByAge[i].sixteenTo20+ "</label>";
   			}
@@ -126,7 +140,7 @@ function TaskByAgeStateChanged()
     	    if(at.taskByAge[i].twentyoneTo30 != "null")
     	    {
     	    	contentString = contentString + 
-  				"<label  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
+  				"<label  onmouseover='' style='cursor: pointer;'  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
   				"\", \"21-30\");' value='" +
   				at.taskByAge[i].twentyoneTo30 + "'>" + at.taskByAge[i].twentyoneTo30+ "</label>";
     	    }
@@ -136,7 +150,7 @@ function TaskByAgeStateChanged()
     	    if(at.taskByAge[i].thirtyoneTo50 != "null")
     	    {
     	    	contentString = contentString + 
-  				"<label  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
+  				"<label  onmouseover='' style='cursor: pointer;'  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
   				"\", \"31-50\");' value='" +
   				at.taskByAge[i].thirtyoneTo50 + "'>" + at.taskByAge[i].thirtyoneTo50+ "</label>";
   			}	
@@ -146,7 +160,7 @@ function TaskByAgeStateChanged()
     	    if(at.taskByAge[i].fiftyoneTo100 != "null")
     	    {
     	    	contentString = contentString + 
-  				"<label  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
+  				"<label  onmouseover='' style='cursor: pointer;'  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
   				"\", \"51-100\");' value='" +
   				at.taskByAge[i].fiftyoneTo100 + "'>" + at.taskByAge[i].fiftyoneTo100+ "</label>";
     	    }
@@ -156,7 +170,7 @@ function TaskByAgeStateChanged()
     	    if(at.taskByAge[i].hundredandonePlus != "null")
     	    {
     	    	contentString = contentString + 
-  				"<label  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
+  				"<label  onmouseover='' style='cursor: pointer;'  onClick='displayPrjs(\"" + at.taskByAge[i].taskname +
   				"\", \"101-1000\");' value='" +
   				at.taskByAge[i].hundredandonePlus + "'>" + at.taskByAge[i].hundredandonePlus+ "</label>";
     	    }   

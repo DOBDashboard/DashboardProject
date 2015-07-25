@@ -26,20 +26,20 @@ String date2=st2.nextToken();
 	<table id = "detailedStatisticsTable">
 		<tr>
 			<td colspan = "2">
-				<form id = "dateSelectionOptionForm">	
-					Time To Permit : <b><%=c[0]%></b> days for SPR permits issued between 
+					
+					<b>Time To Permit:</b> <b><%=c[0]%></b> days for SPR permits issued between 
 	
 					<input type = "date" id = "startDateInput" value = "<%=year1%>-<%=month1%>-<%=(date1).substring(0,2)%>"/>	
 					and
 					<input type = "date" id = "startDateInput" value = "<%=year2%>-<%=month2%>-<%=(date2).substring(0,2)%>"/>
 					<input type = "submit" value = "Go!" id = "submit"/>	
-				</form>
+				
 			</td>
 		</tr>
 		
 		<tr>
 			<td>
-				Number of Permits issued: <b><%=c[3]%></b> 
+				<b>Number of Permits issued:</b> <b><%=c[3]%></b> 
 		 		and Avg Applicant Time: <b><%=c[13]%></b> days
 			</td>	
 			
@@ -81,10 +81,22 @@ String date2=st2.nextToken();
 		<tr>
 			<td valign=top CELLSPACING = "0" CELLPADDING = "0">
 				
-					<p style = "font-size: 12px; color: white;"><b>Project Lookup</b></p> 
+				<!-- 	<p style = "font-size: 12px; color: white;"><b>Project Lookup</b></p> 
+					 -->
+					<div class="searchTitle" style = "cursor: pointer; font-size: 12px; color: white; text-decoration: underline;" 
+							onmouseover = ""><b>Project Lookup</b>
+					    <span class="descriptionToolBox">
+					    	e.g.<br>
+					    	"000111222 N Lake St"<br>
+					    	"000111222"<br>
+						</span>
+					</div>
 					<input id = "searchThisForUserInputId"type = "text" value = "" style = "width: 100%;">
 					<br>
 					<input type = "button" value = "Search" onclick = "displaySearchResult()" tabIndex = "-1">
+					
+
+
 			</td>
 		</tr>
 	</table>

@@ -32,42 +32,48 @@ String ownerTask[][] = dashboard.DatabaseManager.getQueueOwnerByTaskAge();
 %>
 
 <div id = "averagePermitTimesTableDIV">
-<form id = "table_selection" onClick = "table_selected()" >
+<form id = "table_selection">
 	<table id = "averagePermitTimesTable" style="outline: thin solid"  align = "center">
 		<tr style = "line-height: 3px">
-			<td style = "height: 6px" valign = "top" align = "center">
+			<td style = "height: 6px; text-align: center; width: 90%;" valign = "top">
 				<h3>Average Task Times</h3>
+			</td>
+			
+			<td style = "width: 10%; align: right;">
+				<img src="img/helpIcon.ico" title = "Click for Help" alt="helpIcon" id = "helpIconButton2"  
+					onmouseover = '' style = "cursor: pointer; width: 25px; height: 25px;" >		
 			</td>
 		</tr>
 		
 		<tr style = "line-height: 3px"> 
-			<td style = "height: 3px;" align = "center">
-				<b>All</b>
-				<input type = "radio"
-					   name = "tableButtons"
-					   id = "table3Button" 
-					   onmouseover='' style='cursor: pointer;' 
-					   onClick = "displayTasksCC()" checked>
-					   	      		
-				<b>Regular SPR</b>
-				<input type = "radio"
-					   name = "tableButtons"
-					   id = "table2Button"
-					    onmouseover='' style='cursor: pointer;' 
-					   onClick = "displayTasksSPR()">
-					   
-	   			<b>Self Cert</b>
-				<input type = "radio"
-					   name = "tableButtons"
-					   id = "table1Button"
-					    onmouseover='' style='cursor: pointer;' 
-					   onClick = "displayTasksSC()" >
-				<br>
+			<td  style = "height: 3px;" valign = "top" align = "center" colspan = 2>
+				<div>
+					<b>All</b>
+					<input type = "radio"
+						   name = "tableButtons"
+						   id = "table3Button" 
+						   onmouseover='' style='cursor: pointer;' 
+						   onClick = "displayTasksCC(); table_selected();" checked>
+						   	      		
+					<b>Regular SPR</b>
+					<input type = "radio"
+						   name = "tableButtons"
+						   id = "table2Button"
+						    onmouseover='' style='cursor: pointer;' 
+						   onClick = "displayTasksSPR(); table_selected();">
+						   
+		   			<b>Self Cert</b>
+					<input type = "radio"
+						   name = "tableButtons"
+						   id = "table1Button"
+						    onmouseover='' style='cursor: pointer;' 
+						   onClick = "displayTasksSC(); table_selected();" >
+				</div>
 			<td>
 		</tr>
 	
 		<tr>
-			<td>
+			<td colspan = 2>					
 				<div id = "combinedCertAverageDiv">	
 					</div>
 					
@@ -84,49 +90,61 @@ String ownerTask[][] = dashboard.DatabaseManager.getQueueOwnerByTaskAge();
 	
 	
 <div id = "taskQueueTableDIV">	
-<form id = "taskQueForm" onClick = "task_table_selected()">
+<form id = "taskQueForm">
 	<table id = "taskQueueTable"  style="outline: thin solid;" align = "center">
-		<tr style = "line-height: 3px">
-			<td style = "height: 3px;" valign = "top" align = "center">
-				<h3>Task Queue Split</h3>
+		<tr style = "line-height: 3px;">
+			<td style = "height: 6px; text-align: center; width: 90%;" valign = "top" >
+				<h3><b>Task Queue Split</b></h3>
+			</td>
+			
+			<td style = "width: 10%; align: right;">
+				<img src="img/helpIcon.ico" title = "Click for Help" alt="helpIcon" id = "helpIconButton"  
+				onmouseover = '' style = "cursor: pointer; width: 25px; height: 25px; " onClick = "help_button_clicked()" >		
 			</td>
 		</tr>
-	
+
 		<tr style = "line-height: 3px">
-			<td  style = "height: 3px;" valign = "top" align = "center">
-				<b>Task Count</b>	
-				<input type = "radio"
-					   name = "taskQueueButtons"
-					   id = "taskCountTableButton"
-					    onmouseover='' style='cursor: pointer;' 
-					   onClick = "displayTaskCount()">
-				
-				<b>Task by Age</b>	
-				<input type = "radio"
-					   name = "taskQueueButtons"
-					   id = "taskByAgeTableButton"
-					    onmouseover='' style='cursor: pointer;'  
-					   onClick = "displayTaskByAge()">
-				   
-   				<b>Owner by Task Age</b>	
-				<input type = "radio"
-					   name = "taskQueueButtons"
-					   id = "ownerByTaskAgeTableButton"
-					    onmouseover='' style='cursor: pointer;' 
-					   onClick = "displayOwnerByTask()">
+			<td  style = "height: 3px;" valign = "top" align = "center" colspan = 2>
+				<div>
+					<b>Task Count</b>	
+					<input type = "radio"
+						   name = "taskQueueButtons"
+						   id = "taskCountTableButton"
+						    onmouseover='' style='cursor: pointer;' 
+						   onClick = "displayTaskCount(); task_table_selected();">
+					
+					<b>Task by Age</b>	
+					<input type = "radio"
+						   name = "taskQueueButtons"
+						   id = "taskByAgeTableButton"
+						    onmouseover='' style='cursor: pointer;'  
+						   onClick = "displayTaskByAge(); task_table_selected();">
+					   
+	   				<b>Owner by Task Age</b>	
+					<input type = "radio"
+						   name = "taskQueueButtons"
+						   id = "ownerByTaskAgeTableButton"
+						    onmouseover='' style='cursor: pointer;' 
+						   onClick = "displayOwnerByTask(); task_table_selected();">
+			  	</div>	
 			</td>
 		</tr>
+
 		
 		<tr>
-			<td>	
+			<td colspan = 2>	
+				<div id = "ownerTutorialPictureDIV">
+					<img src="img/tutorial.PNG" alt="HowToNavigateThisTable" style=" width:400px; height:525px; ">		
+				</div>
+				
 				<div id = "taskCountDiv">
-					</div>
+				</div>
 				
 				<div id = "taskByAgeDiv">
-					</div>
+				</div>
 			
 				<div id = "ownerByTaskAgeDiv">
-					</div>
+				</div>
 			</td>
 		</tr>
 	</table>

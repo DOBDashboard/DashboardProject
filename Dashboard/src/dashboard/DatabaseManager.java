@@ -1028,13 +1028,15 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 			   conn = ds.getConnection();
 			   stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			   
-			   stmt.execute("select t.TaskName groupName, count( p.ProjectID) tasks " +
-						   "from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid " +
-						   "inner join projects p on f.ParentEntityID = p.ProjectID inner join groups g  on t.AssocEntityID = g.GroupID where t.TaskStatus in ('Accepted', 'Pending') and f.RuntimeStatus " +
-						   "not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and g.name like '" + groupName + "' " +
-						   "group by t.TaskName order by 1;");
-			 
-			  
+			   stmt.execute("select v.taskname groupName, count(v.projectid) tasks from ( " +
+					   "select p.projectid, t.TaskName taskName, count( p.ProjectID) tasks , count(gs.UserID) uct " +
+					   "from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid " +
+					   "inner join projects p on f.ParentEntityID = p.ProjectID inner join groups g  on t.AssocEntityID = g.GroupID " +
+					   "inner join Groups_Users gs on g.GroupID = gs.GroupID " +
+					   "where t.TaskStatus in ('Pending') and f.RuntimeStatus " +
+					   "not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and " +
+					   "g.name like '" + groupName + "' group by p.projectid, t.TaskName) v where uct <> 1 group by v.taskname;");
+			    
 			   rs = stmt.getResultSet(); 
 			   rs.last(); 
 			   projectNameTable = new String [rs.getRow()][2]; 
@@ -1149,7 +1151,7 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 		   return projectNameTable;
 	   }
 	   
-	   
+	   // getTaskAgeUserSplit
 	   public static String[][] getTaskAgeUserSplit(String taskName) throws Exception
 	   {	   
 		   Statement stmt = null;
@@ -1168,20 +1170,23 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 			   conn = ds.getConnection();
 			   stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			   
-			   stmt.execute("select case when Z.ct2 = 1 then z.name2 when z.name IS null then z.grp else Z.name end name, count(*) ct from ( " +
-					   	"select p.name prj, t.taskname, g.name grp, u.FirstName+' '+u.LastName name, datediff(dd, t.DateCreated,getdate())  dif, count(distinct t.flowtaskid) ct, max(u2.FirstName+' '+u2.LastName) name2, COUNT(u2.firstname) ct2 " + 
-						"from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid  " +
-						"inner join projects p on f.ParentEntityID = p.ProjectID inner join groups g  on t.AssocEntityID = g.GroupID left join Users u on t.UpdatedBy = u.userid left join Groups_Users gs on g.GroupID = gs.GroupID " + 
-						"left join Users u2 on gs.UserID = u2.UserID " +
-						"where t.TaskStatus in ('Accepted', 'Pending') and f.RuntimeStatus " +
-						"not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and g.Name not like 'Applicant'  and p.Archived = 0  and t.TaskName like '" + taskName + "' group by " +
-						"p.name, t.taskname, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate()) ) z " +
-						"group  by case when Z.ct2 = 1 then z.name2 when z.name IS null then z.grp else Z.name end order by ct desc;");
+			   stmt.execute("select a.name, sum(ct) ct, sum(a.a) ftn, sum(a.b) thirty, sum (a.c) fifty, sum(a.d) hundred, sum(a.e) hplus from ( " +
+" select case when Z.ct2 = 1 then z.name2 when z.name IS null then z.grp else Z.name end name, count(*) ct, " +
+" sum(case when z.dif between 0 and 15 then z.ct end ) a, sum(case when z.dif between 16 and 30 then z.ct end) b , sum(case when z.dif between 31 and 50 then z.ct end) c,  " +
+" sum(case when z.dif between 51 and 100 then z.ct end) d , sum(case when z.dif > 100 then z.ct end) e " +
+" from ( select p.name prj, t.taskname, g.name grp, u.FirstName+' '+u.LastName name, datediff(dd, t.DateCreated,getdate())  dif, count(distinct t.flowtaskid) ct, max(u2.FirstName+' '+u2.LastName) name2, COUNT(u2.firstname) ct2 " +
+" from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid  " +
+" inner join projects p on f.ParentEntityID = p.ProjectID inner join groups g  on t.AssocEntityID = g.GroupID left join Users u on t.UpdatedBy = u.userid left join Groups_Users gs on g.GroupID = gs.GroupID " +
+" left join Users u2 on gs.UserID = u2.UserID " +
+" where t.TaskStatus in ('Accepted', 'Pending') and f.RuntimeStatus " +
+" not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and g.Name not like 'Applicant'  and p.Archived = 0  and t.TaskName like '"+taskName+"' group by " +
+" p.name, t.taskname, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate()) ) z " +
+" group  by case when Z.ct2 = 1 then z.name2 when z.name IS null then z.grp else Z.name end, dif) a group by  a.name order by ct desc"); 
 			 
 			  
 			   rs = stmt.getResultSet(); 
 			   rs.last(); 
-			   projectNameTable = new String [rs.getRow()][2]; 
+			   projectNameTable = new String [rs.getRow()][7]; 
 			   
 			   rs.beforeFirst();
 			   
@@ -1191,6 +1196,11 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 			   { 
 				   projectNameTable[i][0] = rs.getString("name");
 				   projectNameTable[i][1] = rs.getString("ct");
+				   projectNameTable[i][2] = rs.getString("ftn");
+				   projectNameTable[i][3] = rs.getString("thirty");
+				   projectNameTable[i][4] = rs.getString("fifty");
+				   projectNameTable[i][5] = rs.getString("hundred");
+				   projectNameTable[i][6] = rs.getString("hplus");
 				   i++;
 			   }
 		   }
@@ -1229,7 +1239,7 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 		   
 		   Context ctx = null;
 		   error = null;
-		   
+		   	
 		   String projectNameTable[][] = null;
 		   
 		   try
@@ -1239,7 +1249,7 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 			   conn = ds.getConnection();
 			   stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			   
-			   stmt.execute("select name from projects where name like '%" + searchName + "%';");
+			   stmt.execute("select TOP 100 name from projects where name like '%" + searchName + "%';");
 			 
 			  
 			   rs = stmt.getResultSet(); 

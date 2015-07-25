@@ -40,11 +40,6 @@ function ownerByTaskAgeStateChanged()
 		
 		var ctl = at.taskAgeForOwnerGroup.length;
 		
-		
-		console.log(at.taskAgeForOwnerGroup.length);
-				
-		console.log("INSIDE ownerByTaskAgeStateChanged() of loop");
-		
 		var contentString;
 		
 		document.getElementById("msgBoard").style.backgroundColor = '#B2FFFF';

@@ -6,6 +6,8 @@
 		width: 100%;
 		background-attachment: fixed;
 		background-size: cover;
+		overflow-x:auto; 
+		overflow-y:scroll;
 	}
            
 	#mainBackgroundTable
@@ -39,7 +41,7 @@
 	{
 		outline: thin solid;
 		width: 825px;
-		height: 50px;
+		height: 65px;
 		
 	}
 	
@@ -58,44 +60,84 @@
 	{
 		float:left;
 		padding-left: 5px;
-		padding-right:3px;
+		padding-right:5px;
 	}
 	
 	#searchProjectsTable
 	{
 		width: 245px;
-	
+		height: 65px;
 		outline: thin solid;
 		padding-left: 5px;
 		padding-right: 5px;
-		padding-bottom: 2px;
-		
+				
 		background-color: #33CCFF;
+	}
+	
+	.searchTitle:hover .descriptionToolBox 
+	{
+    	display: block;
+	}
+
+	.descriptionToolBox 
+	{
+	    display: none;
+	    background: #ffff80;
+	    color: black;
+	    padding: 10px;
+	    position: absolute;
+	    z-index: 1000;
+	    width:125px;
+	    height:40px;
+	    border: 1px solid black;
 	}
 	
 	#overallStatisticsDataChartDIV
 	{
 		padding-left: 5px;
-		padding-right: 3px;
+		padding-right: 5px;
+		padding-top: 5px;
 		
 		
 	}
 	
 	#overallStatisticsDataChartTable
 	{
-		width: 1075px;
+		width: 1070px;
 		height: 200px;
 		outline: thin solid;
-		padding-right: 5px;
+		
 		background-color: #33CCFF;
 	}
+	
+	#sampleChartTable
+	{
+		width: 1070px;
+		height: 200px;
+		outline: thin solid;
+		
+		background-color: #33ffad;
+	}
+	
+	/* basic positioning */
+	.legend { list-style: none; top: 0; margin: 0; padding: 0;}
+	.legend li {  margin: 0; padding-bottom: 5px; width: 100%; text-align:left; font-size: 9pt; color: black;}
+	.legend ul { margin: 0; padding: 0;}
+	.legend span { border: 1px solid #400040; float: left; width: 12px; height: 12px; margin: 0; padding: 0; }
+
+	/* your colors */
+	.legend .applicationReceivedKey { background-color: #9933FF; }
+	.legend .permitIssuedKey { background-color: #FF0000; }
+	
+	
+	
 	
 	#averagePermitTimesTableDIV
 	{
 		float: left;
 		padding-left: 5px;
 		padding-right: 3px;
-		padding-top: 15px;
+		padding-top: 5px;
 	}
    	
    	#taskQueueTableDIV
@@ -103,7 +145,7 @@
    		float: left;
    		padding-left: 1px;
    		padding-right: 1px;
-   		padding-top: 15px;
+   		padding-top: 5px;
    		display: block;
    		
    	}	
@@ -113,7 +155,7 @@
    		float: left;
    		padding-left: 2px;
    		padding-right: 0px;
-   		padding-top: 15px;
+   		
    		display: block;	
    	}
 	
@@ -170,6 +212,13 @@
    		width: 100%;
    		padding-top: 15px;
 		display: block; 		
+   	}
+   	
+   	#ownerTutorialPictureDIV
+   	{
+   		align:center; 
+   		horizontal-align: center;
+   		display: block;
    	}
    	
    	#taskCountDiv

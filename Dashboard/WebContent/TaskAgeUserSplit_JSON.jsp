@@ -22,8 +22,14 @@ Used for the loading the results seamlessly to the the DIV in the dashboard main
      "taskAgeUserSplit": [
      <%for (int j = 0; j < ctr; j++) { %>
       <%out.println ("{"); %>
-      "userName": "<%=col[j][0]%>",
+      "userName": "<%=col[j][0]%>", 
       "ct": "<%=col[j][1]%>", 
+      "ftn": "<%=col[j][2]%>", 
+      "thirty": "<%=col[j][3]%>", 
+      "fifty": "<%=col[j][4]%>",
+      "hundred": "<%=col[j][5]%>", 
+      "hplus": "<%=col[j][6]%>",
+
       "clickedThis": "<%=thisName%>",
        <%if (j < (ctr-1)) {out.println ("},");}  else {out.println ("}");}%>
      <%}%>

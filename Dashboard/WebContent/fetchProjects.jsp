@@ -120,17 +120,27 @@ function ADTstateChanged()
 			var contentString;
 			// CHANGE MADE HERE!
       		
+			
 			//str1.toLowerCase().contains(str2.toLowerCase())
       		//if(i == 0 && at.tap[0].HeaderName == "Search Project" && at.tap[0].Name == at.tap[0].SearchName)
 			if(at.tap[0].HeaderName == "Search Project")
       		{
-      			if(i == 0)
+      			console.log("----Search Project" + at.tap[i].Name);
+				if(i == 0)
       			{
       				document.getElementById("msgBoard").style.backgroundColor = '#33CCFF';
       				contentString = '<a href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
               		contentString = contentString + '</a><br>';
               		
-              		counter++;          			
+              		counter++; 
+              		
+              		if(ctl == i+1)
+              		{
+              			headingString = "<p style = 'text-align: center;'><b>" + counter + " Match found!</b></p>"; 
+              			document.getElementById("msgBoard").innerHTML = headingString + contentString;
+              			
+              			break;
+              		}
       			}
       			else
       			{
@@ -143,7 +153,7 @@ function ADTstateChanged()
           			document.getElementById("msgBoard").innerHTML = headingString + contentString;   				
       			}
       			
-   
+   				
       			
 			}
 			else 

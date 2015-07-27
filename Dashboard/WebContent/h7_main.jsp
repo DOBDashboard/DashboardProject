@@ -23,7 +23,7 @@ String date2=st2.nextToken();
 
 <div id = "detailedStatisticsDIV">
 <form>
-	<table id = "detailedStatisticsTable">
+	<table id = "detailedStatisticsTable" style = "background-color: #FFFAF6; border-style: groove; border-color: #FFFAF6; border-width: 1px;">
 		<tr>
 			<td colspan = "2">
 					
@@ -50,7 +50,7 @@ String date2=st2.nextToken();
 	</table>
 
 	<div id = "quickStatisticsDIV">
-		<table id = "quickStatisticsTable" style = "display: none;">
+		<table id = "quickStatisticsTable" style = "display: none; background-color: #FFFAF6;">
 			<tr>
 				<td>
 					Slowest Permit: <b><%=c[4]%></b> days: Fastest Permit: <b><%=c[5]%></b> day(s)
@@ -76,8 +76,8 @@ String date2=st2.nextToken();
 </div>
 
 <div id = "searchProjectsDIV">
-<form onsubmit = "displaySearchResult(); return false">
-	<table id = "searchProjectsTable" >
+<form onsubmit = "displaySearchResult(); return false" autocomplete="off">
+	<table id = "searchProjectsTable" style = "border-style: groove; border-color: #FFFAF6; border-width: 1px;">
 		<tr>
 			<td valign=top CELLSPACING = "0" CELLPADDING = "0">
 				

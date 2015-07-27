@@ -8,14 +8,14 @@
 <%@page import="java.text.DateFormat"%>
 
 <% 
-String x[][] = dashboard.DatabaseManager.permitApplicationReceived(); 
-String z[][] = dashboard.DatabaseManager.permitIssued();
+String x[][] = dashboard.DatabaseManager.permitApplicationReceived(); //pdox-SQL Server DBMS
+String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
 %>
 
 <div id = "overallStatisticsDataChartDIV">
 <form>
-<table style = "border: 1px solid black;">
-<tr id = "chartButtonTrId" style = "background-color: #FFFFD1;">
+<table style = "background-color: #FFFAF6; border-style: groove; border-color: #FFFAF6; border-width: 1px;"">
+<tr id = "chartButtonTrId" style = "background-color: #FFFAF6;">
 	<td colspan = 2; style = "text-align: center;">
 		<input type = "button"
 			   value = "Received vs. Issued"
@@ -30,6 +30,11 @@ String z[][] = dashboard.DatabaseManager.permitIssued();
 			   onClick = "display_main_chart(1);">
 	</td>
 </tr>
+
+<tr style = "height: 1px; width: 100%;">
+	<td style = "content:' '; display:block; border:#CCC8C5; background-color: #CCC8C5; border-radius: 25px;"></td>
+</tr>
+
 <tr>
 <td>
 <div id = "receivedVsIssuedChartDIV" style = "display: block;">
@@ -55,7 +60,7 @@ String z[][] = dashboard.DatabaseManager.permitIssued();
 							'<%=x[5][0]%>', '<%=x[6][0]%>', '<%=x[7][0]%>', '<%=x[8][0]%>', '<%=x[9][0]%>',
 							'<%=x[10][0]%>', '<%=x[11][0]%>', '<%=x[12][0]%>', '<%=x[13][0]%>', '<%=x[14][0]%>',
 							'<%=x[15][0]%>', '<%=x[16][0]%>', '<%=x[17][0]%>', '<%=x[18][0]%>', '<%=x[19][0]%>',
-							'<%=x[20][0]%>'],
+							'<%=x[20][0]%>', '<%=x[21][0]%>', '<%=x[23][0]%>', '<%=x[23][0]%>'],
 					datasets : [
 						{
 							label: "My First dataset",
@@ -71,7 +76,7 @@ String z[][] = dashboard.DatabaseManager.permitIssued();
 								<%=x[5][1]%>, <%=x[6][1]%>, <%=x[7][1]%>, <%=x[8][1]%>, <%=x[9][1]%>,
 								<%=x[10][1]%>, <%=x[11][1]%>, <%=x[12][1]%>, <%=x[13][1]%>, <%=x[14][1]%>,
 								<%=x[15][1]%>, <%=x[16][1]%>, <%=x[17][1]%>, <%=x[18][1]%>, <%=x[19][1]%>,
-								<%=x[20][1]%>]
+								<%=x[20][1]%>, <%=x[21][1]%>, <%=x[22][1]%>, <%=x[23][1]%>]
 						},
 						{
 							label: "My Second dataset",
@@ -81,7 +86,7 @@ String z[][] = dashboard.DatabaseManager.permitIssued();
 							pointStrokeColor : "#fff",
 							pointHighlightFill : "#fff",
 							pointHighlightStroke : "#FFB2B2",
-							data: [<%=z[0][1]%>, <%=z[1][1]%>, <%=z[2][1]%>, <%=z[3][1]%>, <%=z[4][1]%>,
+							data: [0,0,0,<%=z[0][1]%>, <%=z[1][1]%>, <%=z[2][1]%>, <%=z[3][1]%>, <%=z[4][1]%>,
 									<%=z[5][1]%>, <%=z[6][1]%>, <%=z[7][1]%>, <%=z[8][1]%>, <%=z[9][1]%>,
 									<%=z[10][1]%>, <%=z[11][1]%>, <%=z[12][1]%>, <%=z[13][1]%>, <%=z[14][1]%>,
 									<%=z[15][1]%>, <%=z[16][1]%>, <%=z[17][1]%>, <%=z[18][1]%>, <%=z[19][1]%>,

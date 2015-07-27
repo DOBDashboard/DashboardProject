@@ -39,7 +39,7 @@
 	
 	#detailedStatisticsTable
 	{
-		outline: thin solid;
+		
 		width: 825px;
 		height: 65px;
 		
@@ -67,7 +67,6 @@
 	{
 		width: 245px;
 		height: 65px;
-		outline: thin solid;
 		padding-left: 5px;
 		padding-right: 5px;
 				
@@ -105,8 +104,8 @@
 	{
 		width: 1070px;
 		height: 200px;
-		outline: thin solid;
 		
+		 
 		background-color: #33CCFF;
 	}
 	

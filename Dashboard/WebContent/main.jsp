@@ -100,7 +100,7 @@
 			document.getElementById("msgBoard").innerHTML = '';
 	        document.getElementById("taskCountTableButton").checked = false;
             document.getElementById("taskByAgeTableButton").checked = false;
-            document.getElementById("taskCountTableButton").checked = false;
+            document.getElementById("ownerByTaskAgeTableButton").checked = false;
 	    }
 		else if(sumOfAllTableSelected == false && taskSplitByAgeTableSelected == false && ownerByTaskAgeTableButton == false) // first load
 	   {
@@ -230,7 +230,7 @@
 	</tr>	
 	
 	<tr style = "height: 3px; width: 100%;">
-		<td style = "content:' ';  display:block; border:2px solid black; background-color: black;"></td>
+		<td style = "content:' ';  display:block; border:1px solid black; background-color: black;"></td>
 	</tr>
 	
 	<tr>

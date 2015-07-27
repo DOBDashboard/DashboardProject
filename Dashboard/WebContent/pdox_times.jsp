@@ -33,7 +33,7 @@ String ownerTask[][] = dashboard.DatabaseManager.getQueueOwnerByTaskAge();
 
 <div id = "averagePermitTimesTableDIV">
 <form id = "table_selection">
-	<table id = "averagePermitTimesTable" style="outline: thin solid"  align = "center">
+	<table id = "averagePermitTimesTable" style = "background-color: #FFFAF6; border-style: groove; border-color: #FFFAF6; border-width: 1px;" align = "center">
 		<tr style = "line-height: 3px">
 			<td style = "height: 6px; text-align: center; width: 90%;" valign = "top">
 				<h3>Average Task Times</h3>
@@ -91,7 +91,7 @@ String ownerTask[][] = dashboard.DatabaseManager.getQueueOwnerByTaskAge();
 	
 <div id = "taskQueueTableDIV">	
 <form id = "taskQueForm">
-	<table id = "taskQueueTable"  style="outline: thin solid;" align = "center">
+	<table id = "taskQueueTable"  style = "background-color: #FFFAF6; border-style: groove; border-color: #FFFAF6; border-width: 1px;" align = "center">
 		<tr style = "line-height: 3px;">
 			<td style = "height: 6px; text-align: center; width: 90%;" valign = "top" >
 				<h3><b>Task Queue Split</b></h3>

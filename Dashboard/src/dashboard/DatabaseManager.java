@@ -1308,7 +1308,7 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 				  conn = ds.getConnection();
 				  stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				  stmt.execute("select CONVERT(varchar(12),DATEPART(year, createdate) )+ '/' + CONVERT(varchar(12), DATEPART(m, createdate)) dt, count(*) ct, DATEPART(year, createdate) yr, DATEPART(m, createdate) m " +
-							   "from projects where createdate between DATEADD(month, -21, CONVERT(varchar(12), DATEPART(m, getdate()))+'/01/'+CONVERT(varchar(12), DATEPART(year, getdate())) ) and " +
+							   "from projects where createdate between DATEADD(month, -24, CONVERT(varchar(12), DATEPART(m, getdate()))+'/01/'+CONVERT(varchar(12), DATEPART(year, getdate())) ) and " +
 							   "CONVERT(varchar(12), DATEPART(m, getdate()))+'/01/'+CONVERT(varchar(12), DATEPART(year, getdate())) group by " +
 							   "CONVERT(varchar(12),DATEPART( year, createdate) )+ '/' + CONVERT(varchar(12), DATEPART(m, createdate)), DATEPART(year, createdate), DATEPART(m, createdate)  order by  yr, m;"); 
 				  rs = stmt.getResultSet();  

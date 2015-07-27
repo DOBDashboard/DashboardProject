@@ -99,6 +99,11 @@ function searchProject(searchThisProject)
 	console.log("Exiting searchProject()");
 }
 
+function clearContent()
+{
+	document.getElementById("msgBoard").innerHTML = "";
+}
+
 function ADTstateChanged() 
 { 	
 	console.log("Entering ADTstateChanged()");
@@ -110,25 +115,44 @@ function ADTstateChanged()
 		//alert(at);
 		console.log("Inside of if() inside ADTstateChanged()");
 		var ctl = at.tap.length;
-		//alert(ctl);
+		
 		var headerString;
 		console.log("INSIDE ADTstateChanged() of loop");
 		var counter = 0;
 		
+		// project not found 
+		// also do clear result button
+		if(ctl == 0)
+		{
+			document.getElementById("msgBoard").style.backgroundColor = '#33CCFF';
+			document.getElementById("msgBoard").style.align = "center";
+			document.getElementById("msgBoard").style.textAlign = "center";
+			contentString = "<p style = 'font-size = 22pt;'><b>Project doesn't exist!</b></p>";
+			/*document.getElementById("msgBoard").innerHTML = contentString + 
+			"<img src = 'img/sadImage.jpeg' style = 'width: 150px; height; height: 150px;'>";
+			*/
+			document.getElementById("msgBoard").innerHTML = contentString + 
+				"<img src = 'img/sadImage.jpeg' style = 'width: 150px; height; height: 150px;'>" + 
+				"<br>" +
+				"<input type = 'button' value = 'Clear Content' id = 'clearMsgBoard' onClick = 'clearContent();'>";
+			return;
+			
+		}
+		
 		for (i=0; i <ctl; i++ ) 
 		{ 
 			var contentString;
-			// CHANGE MADE HERE!
-      		
+			document.getElementById("msgBoard").style.align = "left";
+			document.getElementById("msgBoard").style.textAlign = "left";
+
 			
-			//str1.toLowerCase().contains(str2.toLowerCase())
-      		//if(i == 0 && at.tap[0].HeaderName == "Search Project" && at.tap[0].Name == at.tap[0].SearchName)
 			if(at.tap[0].HeaderName == "Search Project")
       		{
       			console.log("----Search Project" + at.tap[i].Name);
 				if(i == 0)
       			{
-      				document.getElementById("msgBoard").style.backgroundColor = '#33CCFF';
+
+					document.getElementById("msgBoard").style.backgroundColor = '#33CCFF';
       				contentString = '<a href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
               		contentString = contentString + '</a><br>';
               		

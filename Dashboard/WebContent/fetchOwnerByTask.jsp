@@ -49,7 +49,7 @@ function ownerByTaskStateChanged()
 												'<th class = "ownersByTaskAgeHeaderTH" style="width: 145px"><font size="2"><b>Owner</b></font></th>' +
 												'<th class = "ownersByTaskAgeHeaderTH"><font size="2"><b>Total</b></font></th>' +
 												'<th class = "ownersByTaskAgeHeaderTH" style="width: 16px"><font size="2"><b>0-4</b></font></th>' +
-												'<th class = "ownersByTaskAgeHeaderTH" style="width: 21px"><font size="2"><b>5-10</b></font></th>' +
+												'<th class = "ownersByTaskAgeHeaderTH" style="width: 24px"><font size="2"><b>5-10</b></font></th>' +
 												'<th class = "ownersByTaskAgeHeaderTH" style="width: 27px"><font size="2"><b>11-15</b></font></th>' +
 												'<th class = "ownersByTaskAgeHeaderTH" style="width: 28px"><font size="2"><b>16-20</b></font></th>' +
 												'<th class = "ownersByTaskAgeHeaderTH" style="width: 28px"><font size="2"><b>21-30</b></font></th>' +

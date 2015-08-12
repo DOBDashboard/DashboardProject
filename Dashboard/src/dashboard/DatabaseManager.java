@@ -4,11 +4,12 @@ package dashboard;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.Hashtable;
+
 import javax.naming.*;
 
 import java.util.*;
+
 import javax.sql.DataSource;
 
 public class DatabaseManager  {
@@ -336,6 +337,21 @@ for (int p =0; p < d.length; p++ ){
 			   DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/pdox");
 			   conn = ds.getConnection();
 			   stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			   
+			   stmt.execute("select case when Z.ct2 = 1 then z.name2 when z.name IS null then z.grp when z.name IS not null and z.taskstatus like 'Pending' and ct2 > 1 then z.grp else Z.name end name,  sum(Z.ct) ct, sum(case when z.dif between 0 and 4 then z.ct end )'0To4', sum(case when z.dif between 5 and 10 then z.ct end) '5To10', " +
+							"sum(case when z.dif between 11 and 15 then z.ct end) '11To15' , sum(case when z.dif between 16 and 20 then z.ct end) '16To20' , sum(case when z.dif between 21 and 30 then z.ct end) '21To30', " +
+							"sum(case when z.dif between 31 and 50 then z.ct end) '31To50' , sum(case when z.dif between 51 and 100 then z.ct end) '51To100' , sum(case when z.dif > 100 then z.ct end) '101+' , case when Z.ct2 = 1 then 'P' when z.name IS null then 'G' else 'P' end gp " +
+							"from ( " +
+							"select p.name prj, g.name grp, u.FirstName+' '+u.LastName name, datediff(dd, t.DateCreated,getdate())  dif, count(distinct t.flowtaskid) ct, max(u2.FirstName+' '+u2.LastName) name2, COUNT(u2.firstname) ct2, t.TaskStatus " +
+							"from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid " +
+							"inner join projects p on f.ParentEntityID = p.ProjectID inner join groups g  on t.AssocEntityID = g.GroupID left join Users u on t.UpdatedBy = u.userid left join Groups_Users gs on g.GroupID = gs.GroupID " +
+							"left join Users u2 on gs.UserID = u2.UserID " +
+							"where t.TaskStatus in ('Accepted', 'Pending') and f.RuntimeStatus " +
+							"not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and g.Name not like 'Applicant'  and p.Archived = 0 " +
+							"group by  p.name, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate()) , t.TaskStatus ) z " +
+							"group by  case when Z.ct2 = 1 then 'P' when z.name IS null then 'G' else 'P' end, case when Z.ct2 = 1 then z.name2 when z.name IS null then z.grp when z.name IS not null and z.taskstatus like 'Pending' and ct2 > 1 then z.grp else Z.name end " +
+							"order by 2 desc;");
+			   /*
 			   stmt.execute("select case when Z.ct2 = 1 then z.name2 when z.name IS null then z.grp else Z.name end name,  sum(Z.ct) ct, sum(case when z.dif between 0 and 4 then z.ct end )'0To4', sum(case when z.dif between 5 and 10 then z.ct end) '5To10', " +
 					   "sum(case when z.dif between 11 and 15 then z.ct end) '11To15' , sum(case when z.dif between 16 and 20 then z.ct end) '16To20' , sum(case when z.dif between 21 and 30 then z.ct end) '21To30',  " +
 					   "sum(case when z.dif between 31 and 50 then z.ct end) '31To50' , sum(case when z.dif between 51 and 100 then z.ct end) '51To100' , sum(case when z.dif > 100 then z.ct end) '101+' , case when Z.ct2 = 1 then 'P' when z.name IS null then 'G' else 'P' end gp " +
@@ -349,7 +365,7 @@ for (int p =0; p < d.length; p++ ){
 					   "group by  p.name, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate())  ) z "+
 					   "group by  case when Z.ct2 = 1 then 'P' when z.name IS null then 'G' else 'P' end, case when Z.ct2 = 1 then z.name2 when z.name IS null then z.grp else Z.name end "+
 					   "order by 2 desc;");
-			   
+			   */
 			   rs = stmt.getResultSet(); 
 			   rs.last(); 
 			   taskTimeTable = new String [rs.getRow()][11]; 
@@ -1079,7 +1095,7 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 		   return projectNameTable;
 	   }
 	   
-	   
+	  
 	   public static String[][] getTaskAgeForOwnerIndividual(String ownerName) throws Exception
 	   {	   
 		   Statement stmt = null;
@@ -1098,6 +1114,38 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 			   conn = ds.getConnection();
 			   stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			   
+			  // 8/12 update
+			   stmt.execute("select z.taskname ownerName, count(*) tasks, " +
+							"sum(case when z.dif between 0 and 15 then z.ct end ) ftn, sum(case when z.dif between 16 and 30 then z.ct end) thirty , sum(case when z.dif between 31 and 50 then z.ct end) fifty, " + 
+							"sum(case when z.dif between 51 and 100 then z.ct end) hundrd , sum(case when z.dif > 100 then z.ct end) hplus " +
+							"from ( " +
+							"select p.name prj, t.taskname, g.name grp, u.FirstName+' '+u.LastName name, datediff(dd, t.DateCreated,getdate())  dif, count(distinct t.flowtaskid) ct, max(u2.FirstName+' '+u2.LastName) name2, " +
+							"COUNT(u2.firstname) ct2 , t.taskstatus " +
+							"from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid " +
+							"inner join projects p on f.ParentEntityID = p.ProjectID inner join groups g  on t.AssocEntityID = g.GroupID left join Users u on t.UpdatedBy = u.userid left join Groups_Users gs on " +
+							"g.GroupID = gs.GroupID " +
+							"left join Users u2 on gs.UserID = u2.UserID " +
+							"where t.TaskStatus in ('Accepted', 'Pending') and f.RuntimeStatus " +
+							"not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and g.Name not like 'Applicant'  and p.Archived = 0 " + 
+							"group by  p.name, t.taskname, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate()), t.taskstatus ) z where (ct2 = 1 and name2 like '" + ownerName + "') or " +
+							"(name like '" + ownerName + "'  and taskstatus like 'Accepted') " +
+							"group  by z.taskname;");
+/*			   
+			   stmt.execute("select z.taskname ownerName, count(*) tasks from ( " +
+						   "select p.name prj, t.taskname, g.name grp, u.FirstName+' '+u.LastName name, datediff(dd, t.DateCreated,getdate())  dif, count(distinct t.flowtaskid) ct, max(u2.FirstName+' '+u2.LastName) name2, " +
+						   "COUNT(u2.firstname) ct2 , t.taskstatus " +
+						   "from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid " +
+						   "inner join projects p on f.ParentEntityID = p.ProjectID inner join groups g  on t.AssocEntityID = g.GroupID left join Users u on t.UpdatedBy = u.userid left join Groups_Users gs on " +
+						   "g.GroupID = gs.GroupID " +
+						   "left join Users u2 on gs.UserID = u2.UserID " +
+						   "where t.TaskStatus in ('Accepted', 'Pending') and f.RuntimeStatus " +
+						   "not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and g.Name not like 'Applicant'  and p.Archived = 0 " +
+						   "group by  p.name, t.taskname, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate()), t.taskstatus ) z where (ct2 = 1 and name2 like '" + ownerName + "') or " +
+						   "(name like '" + ownerName + "'  and taskstatus like 'Accepted') " +
+						   "group  by z.taskname;");
+*/
+
+/*			   
 			   stmt.execute("select z.taskname ownerName, count(*) tasks from ( " +
 							"select p.name prj, t.taskname, g.name grp, u.FirstName+' '+u.LastName name, datediff(dd, t.DateCreated,getdate())  dif, count(distinct t.flowtaskid) ct, max(u2.FirstName+' '+u2.LastName) name2, COUNT(u2.firstname) ct2  " +
 							"from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid " +
@@ -1107,7 +1155,7 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 							"not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and g.Name not like 'Applicant'  and p.Archived = 0  " +
 							"group by  p.name, t.taskname, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate()) ) z where ct2 = 1 and   (name like '" + ownerName + "' or name2 like '" + ownerName + "') " +
 							"group  by z.taskname;");
-			 
+	*/		 
 			  
 			   rs = stmt.getResultSet(); 
 			   rs.last(); 
@@ -1169,8 +1217,20 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 			   DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/pdox");
 			   conn = ds.getConnection();
 			   stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			   
 			   stmt.execute("select a.name, sum(ct) ct, sum(a.a) ftn, sum(a.b) thirty, sum (a.c) fifty, sum(a.d) hundred, sum(a.e) hplus from ( " +
+							"select case when Z.ct2 = 1 then 'P-'+z.name2 when z.name IS null then 'G-'+z.grp else 'P-'+Z.name end name, count(*) ct, " +
+							"sum(case when z.dif between 0 and 15 then z.ct end ) a, sum(case when z.dif between 16 and 30 then z.ct end) b , sum(case when z.dif between 31 and 50 then z.ct end) c,  " +
+							"sum(case when z.dif between 51 and 100 then z.ct end) d , sum(case when z.dif > 100 then z.ct end) e " +
+							"from ( select p.name prj, t.taskname, g.name grp, u.FirstName+' '+u.LastName name, datediff(dd, t.DateCreated,getdate())  dif, count(distinct t.flowtaskid) ct, max(u2.FirstName+' '+u2.LastName) name2, COUNT(u2.firstname) ct2 " +
+							"from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid  " +
+							"inner join projects p on f.ParentEntityID = p.ProjectID inner join groups g  on t.AssocEntityID = g.GroupID left join Users u on t.UpdatedBy = u.userid left join Groups_Users gs on g.GroupID = gs.GroupID " +
+							"left join Users u2 on gs.UserID = u2.UserID where t.TaskStatus in ('Accepted', 'Pending') and f.RuntimeStatus " +
+							"not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and g.Name not like 'Applicant'  and p.Archived = 0  and t.TaskName like '" + taskName + "' group by " +
+							"p.name, t.taskname, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate()) ) z " +
+							"group  by case when Z.ct2 = 1 then 'P-'+z.name2 when z.name IS null then 'G-'+z.grp else 'P-'+Z.name end, dif) a group by  a.name order by ct desc");
+
+							
+			 /* stmt.execute("select a.name, sum(ct) ct, sum(a.a) ftn, sum(a.b) thirty, sum (a.c) fifty, sum(a.d) hundred, sum(a.e) hplus from ( " +
 " select case when Z.ct2 = 1 then z.name2 when z.name IS null then z.grp else Z.name end name, count(*) ct, " +
 " sum(case when z.dif between 0 and 15 then z.ct end ) a, sum(case when z.dif between 16 and 30 then z.ct end) b , sum(case when z.dif between 31 and 50 then z.ct end) c,  " +
 " sum(case when z.dif between 51 and 100 then z.ct end) d , sum(case when z.dif > 100 then z.ct end) e " +
@@ -1183,7 +1243,7 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 " p.name, t.taskname, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate()) ) z " +
 " group  by case when Z.ct2 = 1 then z.name2 when z.name IS null then z.grp else Z.name end, dif) a group by  a.name order by ct desc"); 
 			 
-			  
+			  */
 			   rs = stmt.getResultSet(); 
 			   rs.last(); 
 			   projectNameTable = new String [rs.getRow()][7]; 
@@ -1201,6 +1261,148 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 				   projectNameTable[i][4] = rs.getString("fifty");
 				   projectNameTable[i][5] = rs.getString("hundred");
 				   projectNameTable[i][6] = rs.getString("hplus");
+				   i++;
+			   }
+		   }
+		   catch(SQLException e) 
+		   {
+			   error = e;
+			   message = "get apdefnkey failed";
+		   } 
+		   catch(NamingException e) 
+		   {
+			   message = "a failure occurred";
+		   }
+		   finally 
+		   {
+			   try 
+			   {
+				   ctx.close();
+				   stmt.close();
+				   conn.close();
+				   rs.close();
+			   }
+			   catch(Exception e) 
+			   {
+				   message ="  a failure occurred";
+			   }
+		   }
+		   
+		   return projectNameTable;
+	   }
+	   
+	   public static String[][] getTaskAgeUserSplitIndividual(String taskName, String ownerName, int range1, int range2) throws Exception
+	   {	   
+		   Statement stmt = null;
+		   ResultSet rs = null;
+		   Connection conn = null;
+		   
+		   Context ctx = null;
+		   error = null;
+		   
+		   String projectNameTable[][] = null;
+		   
+		   try
+		   {
+			   ctx = new InitialContext();
+			   DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/pdox");
+			   conn = ds.getConnection();
+			   stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+			   stmt.execute("select prj, taskname, grp, name, dif, ct, name2, ct2 from ( " +
+							"select p.name prj, t.taskname, g.name grp, u.FirstName+' '+u.LastName name, datediff(dd, t.DateCreated,getdate())  dif, count(distinct t.flowtaskid) ct, max(u2.FirstName+' '+u2.LastName) name2, " +
+							"COUNT(u2.firstname) ct2 " +
+							"from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid " + 
+							"inner join projects p on f.ParentEntityID = p.ProjectID inner join groups g  on t.AssocEntityID = g.GroupID left join Users u on t.UpdatedBy = u.userid left join Groups_Users gs on g.GroupID = gs.GroupID " +
+							"left join Users u2 on gs.UserID = u2.UserID " +
+							"where t.TaskStatus in ('Accepted', 'Pending') and f.RuntimeStatus " +
+							"not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and g.Name not like 'Applicant'  and p.Archived = 0  and t.TaskName like '" + taskName + "' " +
+							"and datediff(dd, t.DateCreated,getdate()) between " + range1 + " and " + range2 + " " +
+							"group by  p.name, t.taskname, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate()) ) a where " +
+							"name like '" + ownerName+ "' or (name2 like '" + ownerName+ "' and ct2 =1) ;");
+			   
+			   rs = stmt.getResultSet(); 
+			   rs.last(); 
+			   projectNameTable = new String [rs.getRow()][1]; 
+			   
+			   rs.beforeFirst();
+			   
+			   int i = 0;
+			   String temp;
+			   
+			   while (rs.next())
+			   { 
+				   projectNameTable[i][0] = rs.getString("prj");
+				   temp = rs.getString("prj");
+				   i++;
+			   }
+		   }
+		   catch(SQLException e) 
+		   {
+			   error = e;
+			   message = "get apdefnkey failed";
+		   } 
+		   catch(NamingException e) 
+		   {
+			   message = "a failure occurred";
+		   }
+		   finally 
+		   {
+			   try 
+			   {
+				   ctx.close();
+				   stmt.close();
+				   conn.close();
+				   rs.close();
+			   }
+			   catch(Exception e) 
+			   {
+				   message ="  a failure occurred";
+			   }
+		   }
+		   
+		   return projectNameTable;
+	   }
+	   
+	   public static String[][] getTaskAgeUserSplitGroup(String taskName, String ownerName, int range1, int range2) throws Exception
+	   {	   
+		   Statement stmt = null;
+		   ResultSet rs = null;
+		   Connection conn = null;
+		   
+		   Context ctx = null;
+		   error = null;
+		   
+		   String projectNameTable[][] = null;
+		   
+		   try
+		   {
+			   ctx = new InitialContext();
+			   DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/pdox");
+			   conn = ds.getConnection();
+			   stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			   stmt.execute("select a.* from ( " +
+							"select p.name prj, t.taskname, g.name grp, u.FirstName+' '+u.LastName name, datediff(dd, t.DateCreated,getdate())  dif, count(distinct t.flowtaskid) ct, max(u2.FirstName+' '+u2.LastName) name2, COUNT(u2.firstname) ct2 " +
+							"from flowtasks t inner join FlowInstances f on t.FlowInstanceID = f.flowinstanceid " +
+							"inner join projects p on f.ParentEntityID = p.ProjectID inner join groups g  on t.AssocEntityID = g.GroupID left join Users u on t.UpdatedBy = u.userid left join Groups_Users gs on g.GroupID = gs.GroupID " +
+							"left join Users u2 on gs.UserID = u2.UserID " +
+							"where t.TaskStatus in ('Accepted', 'Pending') and f.RuntimeStatus " +
+							"not in ('Complete', 'Terminated') and p.archived = 0  and p.Status not like 'Approved' and g.Name not like 'Applicant'  and p.Archived = 0  and t.TaskName like '" + taskName  +"' " +
+							"group by " +
+							"p.name, t.taskname, g.Name, u.FirstName+' '+u.LastName, datediff(dd, t.DateCreated,getdate()) ) a where " +
+							"dif between " + range1 + " and " + range2 + " and  ct2 > 1 and name is null and grp like '" + ownerName + "'");
+
+			   rs = stmt.getResultSet(); 
+			   rs.last(); 
+			   projectNameTable = new String [rs.getRow()][1]; 
+			   
+			   rs.beforeFirst();
+			   
+			   int i = 0;
+			   
+			   while (rs.next())
+			   { 
+				   projectNameTable[i][0] = rs.getString("prj");
 				   i++;
 			   }
 		   }
@@ -1260,8 +1462,10 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 			   
 			   int i = 0;
 			   
+			   String temp;
 			   while (rs.next())
 			   { 
+				   temp = rs.getString("name");
 				   projectNameTable[i][0] = rs.getString("name");
 				   i++;
 			   }

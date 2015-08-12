@@ -2,6 +2,8 @@
 <%@page import="java.text.DateFormat"%>
 <%@ page import="java.util.*"%>
 
+
+
 <jsp:include page="fetchProjects.jsp" /> 
 
 <jsp:include page="fetchSelfCertT2P.jsp" /> 
@@ -13,6 +15,7 @@
 <jsp:include page="fetchTaskAgeForOwner.jsp" />
 <jsp:include page="fetchTaskAgeForOwnerIndividual.jsp" />
 <jsp:include page="fetchTaskAgeUserSplit.jsp" />
+<jsp:include page="fetchTaskAgeUserSplitGI.jsp" />
 
 <% String d[][] = dashboard.DatabaseManager.getT2P_SPR_SelfCert();  
    String n[][] = dashboard.DatabaseManager.getT2P_SPR_NonSelfCert();  
@@ -31,6 +34,20 @@ String queueAge[][] = dashboard.DatabaseManager.getQueueAgeSplit();
 String ownerTask[][] = dashboard.DatabaseManager.getQueueOwnerByTaskAge();
 %>
 
+<script>
+/*
+// show loading image
+$('#loading').show();
+
+// main image loaded ?
+$('#chartTable').on('load', function(){
+  // hide/remove the loading image
+  $('#loading').hide();
+  
+});
+*/
+</script>
+
 <div id = "averagePermitTimesTableDIV">
 <form id = "table_selection">
 	<table id = "averagePermitTimesTable" style = "background-color: #FFFAF6; border-style: groove; border-color: #FFFAF6; border-width: 1px;" align = "center">
@@ -41,8 +58,15 @@ String ownerTask[][] = dashboard.DatabaseManager.getQueueOwnerByTaskAge();
 			
 			<td style = "width: 10%; align: right;">
 				<img src="img/helpIcon.ico" title = "Click for Help" alt="helpIcon" id = "helpIconButton2"  
+					onmouseover = '' style = " -webkit-filter: grayscale(100%);; cursor: pointer; width: 25px; height: 25px;" >		
+			</td>
+			
+			<!-- 
+			<td style = "width: 10%; align: right;">
+				<img src="img/helpIcon.ico" title = "Click for Help" alt="helpIcon" id = "helpIconButton2"  
 					onmouseover = '' style = "cursor: pointer; width: 25px; height: 25px;" >		
 			</td>
+			-->
 		</tr>
 		
 		<tr style = "line-height: 3px"> 
@@ -71,6 +95,8 @@ String ownerTask[][] = dashboard.DatabaseManager.getQueueOwnerByTaskAge();
 				</div>
 			<td>
 		</tr>
+			
+			
 	
 		<tr>
 			<td colspan = 2>					
@@ -99,7 +125,7 @@ String ownerTask[][] = dashboard.DatabaseManager.getQueueOwnerByTaskAge();
 			
 			<td style = "width: 10%; align: right;">
 				<img src="img/helpIcon.ico" title = "Click for Help" alt="helpIcon" id = "helpIconButton"  
-				onmouseover = '' style = "cursor: pointer; width: 25px; height: 25px; " onClick = "help_button_clicked()" >		
+				onmouseover = '' style = " -webkit-filter: grayscale(100%); cursor: pointer; width: 25px; height: 25px; " onClick = "help_button_clicked()" >		
 			</td>
 		</tr>
 
@@ -156,7 +182,8 @@ String ownerTask[][] = dashboard.DatabaseManager.getQueueOwnerByTaskAge();
 		<tr>
 			<td valign = top>
 				<div id = "messageBoardTableScrollDIV">
-					<p style= "font-size:8pt;" id="msgBoard"></p>
+					<p style = "font-size:8pt;" id="msgBoard"></p>
+					<p style = "font-size:8pt;" id="msgBoard2"></p>
 				</div>
 			</td>
 		</tr>

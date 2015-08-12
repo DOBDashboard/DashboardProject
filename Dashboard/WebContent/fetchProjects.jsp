@@ -97,12 +97,30 @@ function searchProject(searchThisProject)
 	 adtHttp.send(null);
 	 
 	console.log("Exiting searchProject()");
+	
+	
 }
 
 function clearContent()
 {
 	document.getElementById("msgBoard").innerHTML = "";
 }
+
+
+$("#searchButton").click(function() {
+    $('html,body').animate({
+        scrollTop: $("#msgBoard").offset().top},
+        'slow');
+});
+
+$("#searchProjectsDIV").keypress(function(event){
+    if(event.keyCode == 13){
+     $('#searchButton').click();
+      //  validate(); doesn't need to be called from here
+    }
+});
+
+
 
 function ADTstateChanged() 
 { 	
@@ -132,7 +150,7 @@ function ADTstateChanged()
 			"<img src = 'img/sadImage.jpeg' style = 'width: 150px; height; height: 150px;'>";
 			*/
 			document.getElementById("msgBoard").innerHTML = contentString + 
-				"<img src = 'img/sadImage.jpeg' style = 'width: 150px; height; height: 150px;'>" + 
+				"<img src = 'img/notFound.jpg' style = 'width: 150px; height; height: 150px;'>" + 
 				"<br>" +
 				"<input type = 'button' value = 'Clear Content' id = 'clearMsgBoard' onClick = 'clearContent();'>";
 			return;
@@ -148,10 +166,14 @@ function ADTstateChanged()
 			
 			if(at.tap[0].HeaderName == "Search Project")
       		{
-      			console.log("----Search Project" + at.tap[i].Name);
+				// if only 1 match is found
+      			alert(at.tap[i].Name);
 				if(i == 0)
       			{
-
+					
+					console.log("i is 0");
+					console.log("----Search Project" + at.tap[i].Name);
+					
 					document.getElementById("msgBoard").style.backgroundColor = '#33CCFF';
       				contentString = '<a href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
               		contentString = contentString + '</a><br>';
@@ -163,21 +185,34 @@ function ADTstateChanged()
               			headingString = "<p style = 'text-align: center;'><b>" + counter + " Match found!</b></p>"; 
               			document.getElementById("msgBoard").innerHTML = headingString + contentString;
               			
-              			break;
+              			return;
               		}
       			}
       			else
       			{
+      				console.log("i is more than 0----");
+      				console.log("----Search Project" + at.tap[i].Name);
+      				
       	   			contentString = contentString + '<a href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
               		contentString = contentString + '</a><br>';
               		
               		counter++;
               		
           			headingString = "<p style = 'text-align: center;'><b>" + counter + " Match found!</b></p>"; 
-          			document.getElementById("msgBoard").innerHTML = headingString + contentString;   				
+          			document.getElementById("msgBoard").innerHTML = headingString + contentString; 
+          		
+          			if(ctl == i+1)
+              		{
+              			headingString = "<p style = 'text-align: center;'><b>" + counter + " Match found!</b></p>"; 
+              			document.getElementById("msgBoard").innerHTML = headingString + contentString + 
+		        				"<br>" +
+		        				"<input type = 'button' value = 'Clear Content' id = 'clearMsgBoard' onClick = 'clearContent();'>";
+              			
+              			return;
+              		}
       			}
       			
-   				
+				
       			
 			}
 			else 
@@ -199,9 +234,17 @@ function ADTstateChanged()
 	   						" for " + at.tap[i].GroupName + " at " + at.tap[i].Range + "</b></p>";	
 	   				
 	   			}
-			   			   			
-		   		contentString = '<a href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
-		   		document.getElementById("msgBoard").innerHTML = document.getElementById("msgBoard").innerHTML + contentString + '</a><br>';
+			   	
+				if(i%2 == 0)
+				{
+			   		contentString = '<a style = "background-color: white;" href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
+			   		document.getElementById("msgBoard").innerHTML = document.getElementById("msgBoard").innerHTML + contentString + '</a><br>';
+				}
+				else
+				{
+			   		contentString = '<a style = "background-color: #B2B2B2;" href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
+			   		document.getElementById("msgBoard").innerHTML = document.getElementById("msgBoard").innerHTML + contentString + '</a><br>';
+				}
 			}
 		}
 		

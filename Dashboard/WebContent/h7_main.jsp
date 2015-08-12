@@ -29,10 +29,10 @@ String date2=st2.nextToken();
 					
 					<b>Time To Permit:</b> <b><%=c[0]%></b> days for SPR permits issued between 
 	
-					<input type = "date" id = "startDateInput" value = "<%=year1%>-<%=month1%>-<%=(date1).substring(0,2)%>"/>	
+					<input style = " height: 22px;" type = "date" id = "startDateInput" value = "<%=year1%>-<%=month1%>-<%=(date1).substring(0,2)%>"/>	
 					and
-					<input type = "date" id = "startDateInput" value = "<%=year2%>-<%=month2%>-<%=(date2).substring(0,2)%>"/>
-					<input type = "submit" value = "Go!" id = "submit"/>	
+					<input style = " height: 22px;" type = "date" id = "startDateInput" value = "<%=year2%>-<%=month2%>-<%=(date2).substring(0,2)%>"/>
+					<input style = "height: 22px;" type = "submit" value = "Go!" id = "submit"/>	
 				
 			</td>
 		</tr>
@@ -40,35 +40,68 @@ String date2=st2.nextToken();
 		<tr>
 			<td>
 				<b>Number of Permits issued:</b> <b><%=c[3]%></b> 
-		 		and Avg Applicant Time: <b><%=c[13]%></b> days
+		 		and <b>Avg Applicant Time:</b> <b><%=c[13]%></b> days
 			</td>	
 			
 			<td style = "text-align: right;">
-				<input type = "button" onclick = "showHideLinkOnClickFunction()" value = "Show More/Hide All">
+				<input type = "button" id = "showMoreH7Button" onclick = "showHideLinkOnClickFunction()" value = "Show More">
 			</td>
 		</tr>
 	</table>
 
+
+
 	<div id = "quickStatisticsDIV">
-		<table id = "quickStatisticsTable" style = "display: none; background-color: #FFFAF6;">
+		<table id = "quickStatisticsTable" style = "display: none;">
 			<tr>
-				<td>
-					Slowest Permit: <b><%=c[4]%></b> days: Fastest Permit: <b><%=c[5]%></b> day(s)
+				<td rowspan = "2" style = "align: center; text-align: center;">
+					Number of Permits By Days To Permit
+					
+					<div>
+						<canvas id="canvasTop" style = "width: 100%; height:200px;"></canvas>
+					</div>	
+	
+					<script>			
+					var barData = {
+						    labels: ['0-10', '10-20', '20-50', '50-100', '100-200', '200-400', '400+'],
+						    datasets: [
+						        {
+						            label: 'Quick Statistics Table',
+						            fillColor: '#A3FF75',
+						            data: [<%=c[12]%>, <%=c[11]%>,<%=c[10]%>, <%=c[9]%>, <%=c[8]%>, <%=c[7]%>, <%=c[6]%>]
+						        }
+						        
+						    ]
+						};
+		
+					
+					</script>					
 				</td>	
+				
+				<td valign = "top" >
+					<table style = "border-style: groove; border-color: #FFFAF6; border-width: 1px; align: left;">
+						<tr>
+							<td colspan = 2 style = "text-align: center;">
+								Quick Statistics
+							</td>
+						</tr>
+						
+						<tr>
+							<td><b>Slowest Permit</b></td>
+							<td><%=c[4]%> days</td>
+						</tr>
+						
+						<tr>
+							<td><b>Fastest Permit</b></td>
+							<td><%=c[5]%> days</td>
+						</tr>
+					</table>
+					</td>
+				
 			</tr>
 		
 			<tr>
-				<td>
-					<i>Number of Permits By Days to Permit</i>
-					<table BORDER>
-						<tr>
-							<td>0-10</td><td>10-20</td><td>20-50</td><td>50-100</td><td>100-200</td><td>200-400</td><td>400+</td>
-						</tr>
-						<tr>
-							<td><%=c[12]%></td><td><%=c[11]%></td><td><%=c[10]%></td><td><%=c[9]%></td><td><%=c[8]%></td><td><%=c[7]%></td><td><%=c[6]%></td>
-						</tr>
-					</table>
-				</td>
+				
 			</tr>
 		</table>
 	</div>
@@ -76,31 +109,34 @@ String date2=st2.nextToken();
 </div>
 
 <div id = "searchProjectsDIV">
-<form onsubmit = "displaySearchResult(); return false" autocomplete="off">
-	<table id = "searchProjectsTable" style = "border-style: groove; border-color: #FFFAF6; border-width: 1px;">
-		<tr>
-			<td valign=top CELLSPACING = "0" CELLPADDING = "0">
+	<form onsubmit = "displaySearchResult(); return false" autocomplete="off">
+		<table id = "searchProjectsTable" style = "border-style: groove; border-color: #FFFAF6; border-width: 1px;">
+			<tr style = "height: 10px; cellspacing: 0;">
+				<td style = "font-size: 12px; color: black;"><b>Project Lookup</b></td>
 				
-				<!-- 	<p style = "font-size: 12px; color: white;"><b>Project Lookup</b></p> 
-					 -->
-					<div class="searchTitle" style = "cursor: pointer; font-size: 12px; color: white; text-decoration: underline;" 
-							onmouseover = ""><b>Project Lookup</b>
-					    <span class="descriptionToolBox">
+				<td style = "width: 10%; height: 15px; align: right;">
+					<div class="searchTitle" style = "cursor: pointer; font-size: 12px; color: white;" onmouseover = "">
+						<img src="img/helpIconBlue.png" title = "Click for Help" alt="helpIcon" id = "searchHelpButton"  
+						onmouseover = '' style = " -webkit-filter: grayscale(100%);  cursor: pointer; width: 20px; height: 14px; padding: 0;">		
+					
+					    <div class="descriptionToolBox">
 					    	e.g.<br>
 					    	"000111222 N Lake St"<br>
 					    	"000111222"<br>
-						</span>
+						</div>
 					</div>
-					<input id = "searchThisForUserInputId"type = "text" value = "" style = "width: 100%;">
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan = 2>
+					<input id = "searchThisForUserInputId"type = "text" value = "" style = "width: 99%;">
 					<br>
-					<input type = "button" value = "Search" onclick = "displaySearchResult()" tabIndex = "-1">
-					
-
-
-			</td>
-		</tr>
-	</table>
-</form>
+					<input id = "searchButton" type = "button" value = "Search" onclick = "displaySearchResult()" tabIndex = "-1">
+				</td>
+			</tr>
+		</table>
+	</form>
 </div>
 
 <!-- End of File -->

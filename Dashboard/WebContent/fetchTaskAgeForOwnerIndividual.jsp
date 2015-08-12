@@ -60,17 +60,36 @@ function ownerByTaskAgeIndividualStateChanged()
 				if(i == 0)
 				{
 					document.getElementById("msgBoard").style.outline = "thin solid";
-					contentString = "<table id = 'innerTable' style = 'outline: thin solid; width: 100%;'><tr style = 'text-align: center;'><td style = 'align: center; font-size:8pt;' colspan = 2><b>" + at.taskAgeForOwnerIndividual[0].nameOfClicked + "</b></td></tr>";
+					document.getElementById("msgBoard").style.overflowY = "none";
+					contentString = 
+						"<div id = 'taskAgeForOwnerIndividualSpanId' style = 'text-align: center; font-size: 14pt;'>Click on the clickable links below to get started!</div>" +
+						"<div>" + 
+							"<table id = 'innerTable' style = 'overflow-y: auto; height: 100%;outline: thin solid; width: 100%;'>" + 
+								"<tr style = 'text-align: center;'>" + 
+									"<td style = 'align: center; font-size:8pt;'>" +
+										"<b>" + at.taskAgeForOwnerIndividual[0].nameOfClicked + "</b>" + 
+									"</td>" + 
+								"</tr>" + 
+								
+								"<tr>" +
+									"<td style = 'width: 100%; overflow: hidden; text-overflow: ellipsis;'>Task</td><td>Total</td><td>0-15</td><td>16-30</td><td>31-50</td><td>51-100</td><td>101+</td>" +
+								"</tr>";
 				}
 				
-				contentString = contentString + '<tr style = "background-color: white;"><td style = "align: center; font-size:8pt;"><b>' +
-								at.taskAgeForOwnerIndividual[i].taskName + "</td><td>" + at.taskAgeForOwnerIndividual[i].ct + "</td></tr>";	
+				contentString = contentString + 
+								'<tr style = "background-color: white;">' + 
+									'<td style = "align: center; font-size:8pt;">' +
+										'<b>' +	at.taskAgeForOwnerIndividual[i].taskName + "</td>" + 
+									"<td>" + at.taskAgeForOwnerIndividual[i].ct + "</td>" + 
+								"</tr>";	
 			
 		   		//contentString = '<a href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.taskAgeForOwnerIndividual[i].Name +'\' target=\'_blank\')>'+at.taskAgeForOwnerIndividual[i].Name ;
 		   		//document.getElementById("msgBoard").innerHTML = document.getElementById("msgBoard").innerHTML + contentString + '</a><br>';
 	   			//	document.getElementById("msgBoard").innerHTML = document.getElementById("msgBoard").innerHTML + contentString;
 			}
-			document.getElementById("msgBoard").innerHTML = contentString + "</table>";
+			document.getElementById("msgBoard").innerHTML = contentString + 
+							"</table>" + 
+						"</div>";
 		}
 	}
 	console.log("ownerByTaskAgeStateChanged()");

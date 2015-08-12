@@ -29,7 +29,6 @@ Used for the loading the results seamlessly to the the DIV in the dashboard main
       "fifty": "<%=col[j][4]%>",
       "hundred": "<%=col[j][5]%>", 
       "hplus": "<%=col[j][6]%>",
-
       "clickedThis": "<%=thisName%>",
        <%if (j < (ctr-1)) {out.println ("},");}  else {out.println ("}");}%>
      <%}%>

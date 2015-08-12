@@ -9,13 +9,24 @@
 		overflow-x:auto; 
 		overflow-y:scroll;
 	}
-           
+    
+    #loading 
+    {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  width: 150px;
+	  height: 150px;
+	  /* 1/2 of the height and width of the actual gif */
+	  margin: -16px 0 0 -16px;
+	  z-index: 100;
+	}
+	
 	#mainBackgroundTable
 	{
 		width : 1100px;	
-		border-left: 1px solid;
-		
-		border-right: 1px solid;
+		border: 5px solid #1A6680;
+		border-radius: 10px;
 		font-family: "Times New Roman", Times, serif;
 		background-color: #FFF0E0;
 		align: center;
@@ -41,7 +52,7 @@
 	{
 		
 		width: 825px;
-		height: 65px;
+		height: 71px;
 		
 	}
 	
@@ -52,8 +63,9 @@
 	
 	#quickStatisticsTable
 	{
-		background-color: #FFF0E0;
-		width: 825px;
+
+		width: 825px; 
+
 	}
 	
 	#searchProjectsDIV
@@ -66,11 +78,11 @@
 	#searchProjectsTable
 	{
 		width: 245px;
-		height: 65px;
-		padding-left: 5px;
-		padding-right: 5px;
-				
-		background-color: #33CCFF;
+		height: 100%;
+		padding-left: 2px;
+		padding-right: 2px;
+		padding-bottom: 0px;
+		background-color: #FFFAF6;
 	}
 	
 	.searchTitle:hover .descriptionToolBox 
@@ -106,16 +118,25 @@
 		height: 200px;
 		
 		 
-		background-color: #33CCFF;
+	/*	background-color: #33CCFF;*/
 	}
 	
 	#sampleChartTable
 	{
 		width: 1070px;
 		height: 200px;
-		outline: thin solid;
+	
 		
-		background-color: #33ffad;
+	/*	background-color: #33ffad;*/
+	}
+	
+	#sampleChart2Table
+	{
+		width: 1070px;
+		height: 200px;
+		
+		
+	/*	background-color: pink; */
 	}
 	
 	/* basic positioning */
@@ -160,16 +181,65 @@
 	
 	#messageBoardTable
 	{
-	    width: 240px;
+	    width: 235px;
 	    height : 625px;
-	 	padding-left: 3px;
-		padding-right: 1px;		
+		overflow-x: auto;
+	}
+	
+	
+/*
+	#taskUserSplitSpanDiv .taskUserSplitSpanId
+	{
+		float: left;
+	}
+*/
+	#taskUserSplitSpanId 
+	{
+/*		visibility: hidden; */
+	display: block;
+	    background-color: #526652;
+	    color: white;
+	    padding-left: 3px;
+	    padding-top: 2px;
+	 
+	  /*  position: absolute;
+	    z-index: 1000;
+	   */ width:100%;
+	    height: 100px;
+	   
+		overflow-y: auto;
+	}
+	
+	#taskAgeForOwnerIndividualSpanId 
+	{
+		display: block;
+	    background-color: #526652;
+	    color: white;
+	    padding-left: 3px;
+	    padding-top: 2px;
+		width:100%;
+	    height: 100px;
+	   
+		overflow-y: auto;
+	}
+	
+	#taskAgeForOwnerGroupSpanId
+	{
+		display: block;
+	    background-color: #526652;
+	    color: white;
+	    padding-left: 3px;
+	    padding-top: 2px;
+		width:100%;
+	    height: 100px;
+	   
+		overflow-y: auto;
 	}
 	
 	#averagePermitTimesTable
 	{
 		width: 400px;
-		height : 625px;	
+		height : 630px;	
 		padding-left: 5px;
 		padding-right: 5px;
    	}
@@ -177,7 +247,7 @@
 	#taskQueueTable
 	{	   
 	    width: 425px;
-	    height : 625px;
+	    height : 630px;
 	 	padding-left: 5px;
 		padding-right: 2px;
 	
@@ -241,7 +311,7 @@
 	{
 		display: none;
 		padding-top: 15px;
-   		bgcolor: 99CCFF;
+   		bgcolor: #99CCFF;
    		height: 100%;
 	}
 	

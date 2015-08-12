@@ -7,27 +7,40 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 
+<%
+response.setHeader("Cache-Control","no-cache"); // HTTP 1.1
+response.setHeader("Pragma","no-cache"); // HTTP 1.0
+response.setDateHeader ("Expires", 0); // prevents caching at the Proxy cache
+%>
+
 <% 
 String x[][] = dashboard.DatabaseManager.permitApplicationReceived(); //pdox-SQL Server DBMS
 String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
 %>
 
 <div id = "overallStatisticsDataChartDIV">
-<form>
-<table style = "background-color: #FFFAF6; border-style: groove; border-color: #FFFAF6; border-width: 1px;"">
+<form autocomplete="off">
+
+
+
+<table id = "chartTable" style = "background-color: #FFFAF6; border-style: groove; border-color: #FFFAF6; border-width: 1px;">
 <tr id = "chartButtonTrId" style = "background-color: #FFFAF6;">
-	<td colspan = 2; style = "text-align: center;">
-		<input type = "button"
-			   value = "Received vs. Issued"
-			   id = "permitApplicationVsPermitIssuedChartButton"
-			   onmouseover = '' style = "cursor: pointer; background-color: #33CCFF; color: black;"
-			   onClick = "display_main_chart(0);">
+	<td colspan = 2; style = "text-align: right;">
+		<button type="button"
+			    id = "permitApplicationVsPermitIssuedChartButton"
+			    onmouseover = '' style = "cursor: pointer; background-color: #E3E3E3; color: black;"
+			    onClick = "display_main_chart(0);"><img src = "img/barGraphIcon" style = "vertical-align: middle;  width: 20px; height: 15px;"> Received vs. Issued</button>
 	
-		<input type = "button"
-			   value = "Sample Chart"
-			   id = "sampleChartButton"
-			   onmouseover = '' style = "cursor: pointer; background-color: #33ffad; color: black;"
-			   onClick = "display_main_chart(1);">
+		<button type="button"
+			    id = "sampleChartButton"
+			    onmouseover = '' style = "cursor: pointer; background-color: #E3E3E3; color: black;"
+		        onClick = "display_main_chart(1);"><img src = "img/barGraphIcon" style = "vertical-align: middle; width: 20px; height: 15px;"> Sample Chart</button>
+		
+		<button type="button"
+			    id = "sampleChart2Button"
+			    onmouseover = '' style = "cursor: pointer; background-color: #E3E3E3; color: black;"
+		        onClick = "display_main_chart(2);"><img src = "img/barGraphIcon" style = "vertical-align: middle; width: 20px; height: 15px;"> Sample Pie Chart</button>
+		
 	</td>
 </tr>
 
@@ -52,7 +65,7 @@ String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
 
 
 				<script>
-	
+		
 				//var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
 				var lineChartData = {
 						labels : [
@@ -60,7 +73,7 @@ String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
 							'<%=x[5][0]%>', '<%=x[6][0]%>', '<%=x[7][0]%>', '<%=x[8][0]%>', '<%=x[9][0]%>',
 							'<%=x[10][0]%>', '<%=x[11][0]%>', '<%=x[12][0]%>', '<%=x[13][0]%>', '<%=x[14][0]%>',
 							'<%=x[15][0]%>', '<%=x[16][0]%>', '<%=x[17][0]%>', '<%=x[18][0]%>', '<%=x[19][0]%>',
-							'<%=x[20][0]%>', '<%=x[21][0]%>', '<%=x[23][0]%>', '<%=x[23][0]%>'],
+							'<%=x[20][0]%>', '<%=x[21][0]%>', '<%=x[22][0]%>', '<%=x[23][0]%>'],
 					datasets : [
 						{
 							label: "My First dataset",
@@ -70,7 +83,7 @@ String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
 							
 							pointStrokeColor : "#fff",
 							pointHighlightFill : "#fff",
-							pointHighlightStroke : "CC99FF",
+							pointHighlightStroke : "#CC99FF",
 							data : [
 								<%=x[0][1]%>, <%=x[1][1]%>, <%=x[2][1]%>, <%=x[3][1]%>, <%=x[4][1]%>,
 								<%=x[5][1]%>, <%=x[6][1]%>, <%=x[7][1]%>, <%=x[8][1]%>, <%=x[9][1]%>,
@@ -80,17 +93,18 @@ String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
 						},
 						{
 							label: "My Second dataset",
-							fillColor : "rgba(151,187,205,0.2)",
+							fillColor : "rgba(220,220,220,0.2)",
 							strokeColor : "#FF0000",
 							pointColor : "#FFB2B2",
+							
 							pointStrokeColor : "#fff",
 							pointHighlightFill : "#fff",
 							pointHighlightStroke : "#FFB2B2",
-							data: [0,0,0,<%=z[0][1]%>, <%=z[1][1]%>, <%=z[2][1]%>, <%=z[3][1]%>, <%=z[4][1]%>,
+							data: [0,0,<%=z[0][1]%>, <%=z[1][1]%>, <%=z[2][1]%>, <%=z[3][1]%>, <%=z[4][1]%>,
 									<%=z[5][1]%>, <%=z[6][1]%>, <%=z[7][1]%>, <%=z[8][1]%>, <%=z[9][1]%>,
 									<%=z[10][1]%>, <%=z[11][1]%>, <%=z[12][1]%>, <%=z[13][1]%>, <%=z[14][1]%>,
 									<%=z[15][1]%>, <%=z[16][1]%>, <%=z[17][1]%>, <%=z[18][1]%>, <%=z[19][1]%>,
-									<%=z[20][1]%>]
+									<%=z[20][1]%>, <%=z[21][1]%>]
 						}
 					]
 				}
@@ -100,7 +114,7 @@ String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
 			</td>
 			<td style = "width: 75px; margin: 0; padding: 0; top: 0; left: 0;  border-spacing: 0px;">
 				<ul class="legend">
-				    <li><span class="applicationReceivedKey"></span>&nbsp;Received</li>
+				    <li><span class="applicationReceivedKey"></span>&nbsp;Application</li>
 				    
 				    <li><span class="permitIssuedKey"></span>&nbsp;Issued</li>
 				</ul>
@@ -131,23 +145,14 @@ String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
 					datasets : [
 						{
 							label: "Sample Chart Label 1",
-							fillColor : "rgba(220,220,220,0.2)",
-							strokeColor : "#9933FF",
-							pointColor : "#CC99FF",
+							fillColor : "#9CBABA",
 							
-							pointStrokeColor : "#fff",
-							pointHighlightFill : "#fff",
-							pointHighlightStroke : "CC99FF",
 							data : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
 						},
 						{
 							label: "Sample Chart Label 1",
-							fillColor : "rgba(151,187,205,0.2)",
-							strokeColor : "#FF0000",
-							pointColor : "#FFB2B2",
-							pointStrokeColor : "#fff",
-							pointHighlightFill : "#fff",
-							pointHighlightStroke : "#FFB2B2",
+							fillColor : "yellow",
+							
 							data: [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
 						}
 					]
@@ -168,9 +173,84 @@ String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
 		
 	</table>
 </div>
+
+<div id = "sampleChart2DIV" style = "display: none;">
+	<table id = "sampleChart2Table">
+		<tr>
+			<td style = "text-align: center; ">
+				<b>Sample Chart 2</b>
+			</td>
+			<td style = "text-align: center;">
+				<b>Sample Chart 2B</b>
+			</td>
+		</tr>
+		
+		<tr style = "align: center;">
+			<td>						
+    			<div style="padding-right: 5px;">
+					<canvas id="canvas3" style = "width: 50%; height:200px;"></canvas>
+				</div>
+			
+				<script>
+					var lineChartData3 = [
+	                      {
+	                          value: 25,
+	                          label: 'Java',
+	                          color: '#811BD6'
+	                       },
+	                       {
+	                          value: 10,
+	                          label: 'Scala',
+	                          color: '#9CBABA'
+	                       },
+	                       {
+	                          value: 30,
+	                          label: 'PHP',
+	                          color: '#D18177'
+	                       },
+	                       {
+	                          value : 35,
+	                          label: 'HTML',
+	                          color: '#6AE128'
+	                       }
+	                    ];
+	
+			</script>				
+			<!-- 
+			<td style = "width: 75px; margin: 0; padding: 0; top: 0; left: 0;  border-spacing: 0px;">
+				<ul class="legend">
+				    <li><span class="applicationReceivedKey"></span>&nbsp;SampleLegendTop</li>
+				    
+				    <li><span class="permitIssuedKey"></span>&nbsp;SampleLegendBottom</li>
+				</ul>
+			</td>
+			-->	
+			<td>
+				<div style="padding-right: 5px;">
+					<canvas id="canvas3.2" style = "width: 50%; height:200px;"></canvas>
+				</div>
+			</td>
+			<!-- 
+			<td style = "width: 75px; margin: 0; padding: 0; top: 0; left: 0;  border-spacing: 0px;">
+				<ul class="legend">
+				    <li><span class="applicationReceivedKey"></span>&nbsp;SampleLegendTop</li>
+				    
+				    <li><span class="permitIssuedKey"></span>&nbsp;SampleLegendBottom</li>
+				</ul>
+			</td>
+			-->
+		</tr>
+		
+		
+	</table>
+</div>
+
 </td>
 </tr>
 
 </table>
 </form>
 </div>
+
+
+

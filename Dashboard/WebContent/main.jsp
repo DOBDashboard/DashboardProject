@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,23 +9,57 @@
 
 <link rel = "stylesheet" href = "stylePage.css">
 
+<link rel = "icon" href = "img/logo.ico">
+<link rel = "shortcut icon" href="img/logo.ico">
+
 <script type = "text/javascript" src = "jquery-1.11.3.js"></script>
-<script src="Chart.js"></script>
- 
+
+
+<script src="Chart.js"></script> 
+
+
+<script>
+/*     var time = new Date().getTime();
+     $(document.body).bind("mousemove keypress", function(e) {
+         time = new Date().getTime();
+     });
+
+     function refresh() {
+         if(new Date().getTime() - time >= 60000) 
+             window.location.reload(true);
+         else 
+             setTimeout(refresh, 10000);
+     }
+
+     setTimeout(refresh, 10000);
+*/
+     </script>
+
 <script>
 	
     function showHideLinkOnClickFunction()
     {	
     	var showHideTable = document.getElementById("quickStatisticsTable");
+    	var valueOfShowHideButton = document.getElementById("showMoreH7Button");
+    	
     	
     	if(showHideTable.style.display == 'none')
    		{
+    		valueOfShowHideButton.value = "Hide All ";
     		showHideTable.style.display = 'block';	
+    		
+    		var context = document.getElementById('canvasTop').getContext('2d');
+    		window.myLine = new Chart(context).Bar(barData, {
+   			 scaleOverride: true,  scaleStartValue: 0, scaleStepWidth: 75, scaleSteps: 2});  
+    		
+    		
    		}
     	else
    		{
-   			showHideTable.style.display = 'none';
-   		}
+    		valueOfShowHideButton.value = "Show More";
+    		showHideTable.style.display = 'none';
+    	}
+    	
     }
     
     function displaySearchResult()
@@ -35,10 +70,10 @@
 
 //Funtion remote button selection to display tables in Average Tesk Time table
    	
-    
+
    	function table_selected()
     {
-        var table1Selected = document.getElementById("table1Button").checked;
+   		var table1Selected = document.getElementById("table1Button").checked;
         var table2Selected = document.getElementById("table2Button").checked;
         var table3Selected = document.getElementById("table3Button").checked;
         
@@ -48,7 +83,7 @@
         
      	if(table1Selected == true && table2Selected == false && table3Selected == false)
         {
-            table1.style.display = 'block';
+     		table1.style.display = 'block';
             table2.style.display = 'none'; 
             table3.style.display = 'none';
             console.log("beforesc main script");
@@ -73,8 +108,7 @@
          //   displayTasksSPR();
             console.log("sprafter main script ");
             
-        }
-           
+        }	
     }
     
 	function help_button_clicked()
@@ -178,14 +212,30 @@
 	
     function display_main_chart(whichChart)
     {
-    	var receivedVsIssuedChart = document.getElementById("receivedVsIssuedChartDIV");
-    		
-    	var sampleChart = document.getElementById("sampleChartDIV");
+    	var receivedVsIssuedChart = document.getElementById("receivedVsIssuedChartDIV");	
+    	var sampleChart = document.getElementById("sampleChartDIV");    	
+    	var sampleChart2 = document.getElementById("sampleChart2DIV");
     	
+    	// background-color: #E3E3E3; color: white;"
+    
     	if(whichChart == 0)
     	{
-    		sampleChart.style.display = "none";
     		receivedVsIssuedChart.style.display = "block";
+    		sampleChart.style.display = "none";
+    		sampleChart2.style.display = "none";
+    		
+    		document.getElementById("permitApplicationVsPermitIssuedChartButton").style.backgroundColor = "#808080";
+    		document.getElementById("sampleChartButton").style.backgroundColor = "#E3E3E3";
+    		document.getElementById("sampleChart2Button").style.backgroundColor = "#E3E3E3";
+    		
+    		document.getElementById("permitApplicationVsPermitIssuedChartButton").style.color = "white";
+    		document.getElementById("sampleChartButton").style.color = "black";
+    		document.getElementById("sampleChart2Button").style.color = "black";
+    		
+    		document.getElementById("permitApplicationVsPermitIssuedChartButton").style.border = "2px solid #333231";
+    		document.getElementById("sampleChartButton").style.border = "none";
+    		document.getElementById("sampleChart2Button").style.border = "none";
+    		
     		var ctx = document.getElementById("canvas").getContext("2d");
     		window.myLine = new Chart(ctx).Line(lineChartData, {
     			 scaleOverride: true, scaleStartValue: 0, scaleStepWidth: 120, scaleSteps: 10});
@@ -195,10 +245,50 @@
     	{
     		receivedVsIssuedChart.style.display = "none";
     		sampleChart.style.display = "block";
+    		sampleChart2.style.display = "none";
+    		
+    		document.getElementById("permitApplicationVsPermitIssuedChartButton").style.backgroundColor = "#E3E3E3";
+    		document.getElementById("sampleChartButton").style.backgroundColor = "#808080";
+    		document.getElementById("sampleChart2Button").style.backgroundColor = "#E3E3E3";
+    		
+    		document.getElementById("permitApplicationVsPermitIssuedChartButton").style.color = "black";
+    		document.getElementById("sampleChartButton").style.color = "white";
+    		document.getElementById("sampleChart2Button").style.color = "black";
+    		    		
+    		document.getElementById("permitApplicationVsPermitIssuedChartButton").style.border = "none";
+    		document.getElementById("sampleChartButton").style.border = "2px solid #333231";
+    		document.getElementById("sampleChart2Button").style.border = "none";
+    		
     		var ctx2 = document.getElementById("canvas2").getContext("2d");
-    		window.myLine = new Chart(ctx2).Line(lineChartData2, {
+    		window.myLine = new Chart(ctx2).Bar(lineChartData2, {
     			 scaleOverride: true, scaleStartValue: 0, scaleStepWidth: 3, scaleSteps: 10});
+    	
     	}
+    	else if(whichChart == 2)
+    	{
+    		receivedVsIssuedChart.style.display = "none";
+    		sampleChart.style.display = "none";
+    		sampleChart2.style.display = "block";
+    		
+    		document.getElementById("permitApplicationVsPermitIssuedChartButton").style.backgroundColor = "#E3E3E3";
+    		document.getElementById("sampleChartButton").style.backgroundColor = "#E3E3E3";
+    		document.getElementById("sampleChart2Button").style.backgroundColor = "#808080";
+    		
+    		document.getElementById("permitApplicationVsPermitIssuedChartButton").style.color = "black";
+    		document.getElementById("sampleChartButton").style.color = "black";
+    		document.getElementById("sampleChart2Button").style.color = "white";
+    		
+    		document.getElementById("permitApplicationVsPermitIssuedChartButton").style.border = "none";
+    		document.getElementById("sampleChartButton").style.border = "none";
+    		document.getElementById("sampleChart2Button").style.border = "2px solid #333231";
+    		    		
+    		var ctx3 = document.getElementById("canvas3").getContext("2d");
+    		window.myLine = new Chart(ctx3).Pie(lineChartData3);
+    		
+    		var ctx3_2 = document.getElementById("canvas3.2").getContext("2d");
+    		window.myLine = new Chart(ctx3_2).Pie(lineChartData3);
+    	
+    		 	}
     	else
     	{
     		;
@@ -209,17 +299,22 @@
 </head>
 
 <body>
+ 
+<div>
+	<img id = "loading" src = "img/loader2.gif" alt = "Loading indicator">
+</div>
+
 <div id = "centerDIV">
 <table id = "mainBackgroundTable"  align = "center">
-	<tr> 
-		<td>
+	<tr style = "background-color: #CCC0B3;"> 
+		<td style = "color: black;">
 			<div style = "padding-left: 5px; padding-top: 5px; float: left;">
 				<img alt="" height= 70 width=70 src="img/city_logo.jpg">
 			</div>
 			
 			<div style = "align: center; float: left; padding-left: 100px;">
 				<h2 style="padding-left: 265px; margin:0; padding-bottom:5px; padding-top: 5px;">City of Chicago</h2>
-				<h2 style = "padding-left: 45px; margin:0; padding-bottom:0;">Department of Buildings Permits and Inspections Dashboard</h2>
+				<h2 style = "padding-left: 42px; margin:0; padding-bottom:0;">Department of Buildings Permits and Inspections Dashboard</h2>
 			</div>
 			
 			<div style = "padding-left: 80px;  padding-top: 5px; float: left;">
@@ -229,8 +324,8 @@
 		</td>
 	</tr>	
 	
-	<tr style = "height: 3px; width: 100%;">
-		<td style = "content:' ';  display:block; border:1px solid black; background-color: black;"></td>
+	<tr style = "height: 10px; width: 100%;">
+		<td style = "content:' ';  display:block; border:1px solid #1A6680; background-color: #1A6680;"></td>
 	</tr>
 	
 	<tr>
@@ -251,27 +346,56 @@
 		<td colspan=3 align = left bgcolor = "#FFF0E0" valign = center > <jsp:include page="pdox_times.jsp" /></td>
 	</tr> 
 	
+<%
+	
 
+/*
+    Integer hitsCount = 
+      (Integer)application.getAttribute("hitCounter");
+    if( hitsCount ==null || hitsCount == 0 ){
+       // First visit
+    //   out.println("Welcome to my website!");
+       hitsCount = 1;
+    }else{
+       // return visit 
+     //  out.println("Welcome back to my website!");
+       hitsCount += 1;
+    }
+    application.setAttribute("hitCounter", hitsCount);
+*/
+%>
 	<tr style = "background-color: #FFF0E0;">
 		<td>
 			<p style = "text-align: center;">
 				<a href = "http://www.cityofchicago.org/buildings" title = "DOB">Departments of Buildings</a> ||  
 				<a href = "http://10.220.30.129:8080/Dashboard/main.jsp" title = "Home">Dashboard</a>
+	
 			</p>
 		</td>
 	</tr>
 </table>
 </div>
+
 	<script>
 	
-   
-	
+
+ // show loading image
+    $('#loading').show();
+
 	$(document).ready(function() {
-		   
-		   $('#table3Button').click();
-		   $('#helpIconButton').click();
-		   $('#permitApplicationVsPermitIssuedChartButton').click();
+		
+		$('#permitApplicationVsPermitIssuedChartButton').click();
+	   $('#table3Button').click();
+	   $('#helpIconButton').click();
+	   
+	   $('#loading').hide();
 		});	
+	/*
+	$('#showMoreH7Button').click(function() {
+		var context = document.getElementById('canvasTop').getContext('2d');
+var clientsChart = new Chart(context).Bar(barData);
+});
+	*/
 	</script>
 </body>
 

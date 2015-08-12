@@ -28,8 +28,6 @@ function displayTaskByAge()
 	 adtHttp.send(null);
 	console.log("Exiting displayTaskByAge()");
 }
- 
-
 
 function TaskByAgeStateChanged() 
 { 	
@@ -40,7 +38,7 @@ function TaskByAgeStateChanged()
 		var ctl = at.taskByAge.length;		
 	
 		var contentString = "<table id = 'taskByAgeTable' CELLPADDING='0' CELLSPACING='0' valign = 'top' align = 'center'>" + 
-				"<tr><td colspan = 10 align=center><b>Task Split by Age</b></td></tr><tr style = 'background-color: #333333; color: white;'>" +
+				"<tr><td colspan = 10 align=center><b>Task Split by Age</b></td></tr><tr style = 'background-color: #666666; color: white;'>" +
 				"<td><b>Task</b></td><td><b>Total</b></td><td><b>0-4</b></td><td><b>5-10</b></td>" + 
 				"<td><b>11-15</b></td><td><b>16-20</b></td><td><b>21-30</b></td><td><b>31-50</b></td>" +
 				"<td><b>51-100</b></td><td><b>101+</b></td></tr>";

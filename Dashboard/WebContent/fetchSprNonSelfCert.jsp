@@ -45,13 +45,13 @@ function T2PSPRstateChanged()
 		var t2p_cc = 0.00;
 
 		var contentString = "<table id = 'sprNonSelfCertAverageTimesTable' bgcolor='99CCFF' border = 'show' CELLPADDING='0' CELLSPACING='0' valign = 'top' align = 'center'>" + 
-				"<tr><td colspan = 4 align=center><b>SPR Non-Self Cert Average Times</b></td></tr><tr style = 'background-color: #333333; color: white;'><td><b>Task</b></td><td><b>Avg Time</b></td><td><b>#Projects</b></td><td><b>T2P</b></td></tr>";
+				"<tr><td colspan = 4 align=center><b>SPR Non-Self Cert Average Times</b></td></tr><tr style = 'background-color: #666666; color: white;'><td><b>Task</b></td><td><b>Avg Time</b></td><td><b>#Projects</b></td><td><b>T2P</b></td></tr>";
 		
 		for (i=0; i <ctl; i++ ) 
 		{    	    
     	    if (parseInt(at.t2pspr[i].ordr)%2 == 0) 
     	    { 
-    	    	contentString = contentString + "<tr bgcolor='FF8C00'> <td>" ;
+    	    	contentString = contentString + "<tr bgcolor='#FFD6C2' title = 'Applicant's Task'> <td>" ;
     	    } 
     	    else 
     	    { 

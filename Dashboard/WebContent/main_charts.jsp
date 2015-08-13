@@ -16,6 +16,20 @@ response.setDateHeader ("Expires", 0); // prevents caching at the Proxy cache
 <% 
 String x[][] = dashboard.DatabaseManager.permitApplicationReceived(); //pdox-SQL Server DBMS
 String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
+String[] yrIndex= new String[12];
+yrIndex[0] = "Jan";
+yrIndex[1] = "Feb";
+yrIndex[2] = "Mar";
+yrIndex[3] = "Apr";
+yrIndex[4] = "May";
+yrIndex[5] = "Jun";
+yrIndex[6] = "Jul";
+yrIndex[7] = "Aug";
+yrIndex[8] = "Sept";
+yrIndex[9] = "Oct";
+yrIndex[10] = "Nov";
+yrIndex[11] = "Dec";
+
 %>
 
 <div id = "overallStatisticsDataChartDIV">
@@ -65,15 +79,42 @@ String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
 
 
 				<script>
+				
+				<%//Java code for splitting the "yyyy/mm" and displaying it as "Mon 'YY"
+				
+				String[] mmYYarray = new String[24];
+				
+				
+				int a = 0;
+				int b = 0;
+				int i = 0;
+				String mon = new String();
+				
+				for(i = 0 ; i < 24; i++){
+					
+					//getting YY
+					a = Integer.parseInt(x[i][2]);
+					a = a - 2000;
+					
+					//getting Mon
+					b = Integer.parseInt(x[i][3]) - 1;
+					mon = yrIndex[b];
+					
+					mmYYarray[i] = mon + " '" + Integer.toString(a);
+				}
+				
+
+			%>
+			
 		
 				//var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
 				var lineChartData = {
 						labels : [
-							'<%=x[0][0]%>', '<%=x[1][0]%>', '<%=x[2][0]%>', '<%=x[3][0]%>' , '<%=x[4][0]%>',		
-							'<%=x[5][0]%>', '<%=x[6][0]%>', '<%=x[7][0]%>', '<%=x[8][0]%>', '<%=x[9][0]%>',
-							'<%=x[10][0]%>', '<%=x[11][0]%>', '<%=x[12][0]%>', '<%=x[13][0]%>', '<%=x[14][0]%>',
-							'<%=x[15][0]%>', '<%=x[16][0]%>', '<%=x[17][0]%>', '<%=x[18][0]%>', '<%=x[19][0]%>',
-							'<%=x[20][0]%>', '<%=x[21][0]%>', '<%=x[22][0]%>', '<%=x[23][0]%>'],
+								    "<%=mmYYarray[0]%>", "<%=mmYYarray[1]%>", "<%=mmYYarray[2]%>", "<%=mmYYarray[3]%>" , "<%=mmYYarray[4]%>",		
+								    "<%=mmYYarray[5]%>", "<%=mmYYarray[6]%>", "<%=mmYYarray[7]%>", "<%=mmYYarray[8]%>", "<%=mmYYarray[9]%>",
+								    "<%=mmYYarray[10]%>", "<%=mmYYarray[11]%>", "<%=mmYYarray[12]%>", "<%=mmYYarray[13]%>", "<%=mmYYarray[14]%>",
+								    "<%=mmYYarray[15]%>", "<%=mmYYarray[16]%>", "<%=mmYYarray[17]%>", "<%=mmYYarray[18]%>", "<%=mmYYarray[19]%>",
+								    "<%=mmYYarray[20]%>", "<%=mmYYarray[21]%>", "<%=mmYYarray[22]%>", "<%=mmYYarray[23]%>" ],
 					datasets : [
 						{
 							label: "My First dataset",

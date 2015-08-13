@@ -1518,7 +1518,7 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 				  rs = stmt.getResultSet();  
 				   rs.last(); 
 				   
-				   c = new String [rs.getRow()][2]; 
+				   c = new String [rs.getRow()][4]; 
 				   
 				   rs.beforeFirst();
 				   int i = 0;
@@ -1527,12 +1527,10 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 				   { 
 					   
 					   c[i][0] = rs.getString("dt");
-				
-					   
 					   c[i][1] = rs.getString("ct");
-					    
-					   
-					 
+					   c[i][2] = rs.getString("yr");
+					   c[i][3] = rs.getString("m");
+
 					   i++;
 				   }
 			     
@@ -1611,8 +1609,5 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 		      return c;
 		       
 		   }
-	   
-
-	  
-	   
+  
 }

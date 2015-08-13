@@ -5,14 +5,17 @@
 	
 <%@ page contentType="text/html" %>
 <%@ page import="dashboard.*" %>
-
-
+	<script type = "text/javascript" src = "jquery-1.11.3.js"></script>
+	<script src="Chart.js"></script>
 <%
 	String age = request.getParameter("prj");
 	int ztr = 0;
 	
 	String col[][] =  DatabaseManager.getPrjActivityDetails(request.getParameter("prj"));  
 	int ctr = col.length; 
+	int applicantCount = 0; //applicant number of days to complete zoning not included
+	int totalCount = 0; //total number of days to complete zoning not included 
+	int dobCount = 0;//DOB number of days to complete zoning not included
 	
 	String three;
 	String six;
@@ -73,7 +76,7 @@
 		</style>
 		
 		
-		<table id = "mainTable" align = "center">
+		<table id = "mainTable" align = "center" style = "margin-top:350px">
 			<tr style = "text-align: center; background-color: gray; font-size: 24px;">
 				<td colspan = 9 style = "vertical-align: top; "><b><%=col[0][0]%></b></td>
 			</tr>
@@ -264,12 +267,72 @@
 <%
 				}
 			}
+			
+			for( int j = 0; j < ctr; j++)
+			{
+				if (!col[j][1].equalsIgnoreCase("ZoningReviewV3"))
+				{
+					if(col[j][6].equalsIgnoreCase("Applicant") && col[j][9] != null )
+					{
+						applicantCount = applicantCount + Integer.parseInt(col[j][9]);
+						totalCount = totalCount + Integer.parseInt(col[j][9]);
+					}
+					else if(col[j][9] != null)
+					{
+						dobCount = dobCount + Integer.parseInt(col[j][9]);
+						totalCount = totalCount + Integer.parseInt(col[j][9]);		
+					}
+				}
+			}
+			
 %>	
 			<tr style = "text-align: right; background-color: gray;">
 				<td colspan = 9>Applicant's Total Days Completed: <b><%=sumOfCompletedDays%></b></td>
 			</tr>
 	
 		</table>
+		
+		<table  style = "top:0px;  position: absolute;  left: 825px;">
+
+			<tr>
+				
+				<td>	
+					<h4> Total Days to Complete Task:  Applicant vs. DOB </h4>
+					<canvas id="clients" width="300" height="300"></canvas>
+				
+						<script>
+							
+							var barData = {
+							    labels: ['Applicant', 'DOB', 'Total'],
+							    datasets: [
+							        {
+							            label: 'Days To Complete',
+							            fillColor: '#382765',
+							            data: [<%=applicantCount%>, <%=dobCount%>, <%=totalCount%>]
+							        },
+							       
+							    ]
+							};
+							
+							
+							
+							$(document).ready(function() {
+								var context = document.getElementById('clients').getContext('2d');
+								var clientsChart = new Chart(context).Bar(barData);
+								});		
+						</script>
+						
+					</td> 	
+			</tr>		
+		</table>
+		
+			<script>
+				$(document).ready(function() {
+				var context = document.getElementById('clients').getContext('2d');
+				var clientsChart = new Chart(context).Bar(barData);
+				});							
+			</script>
+		
 	</html>
 	
 <%

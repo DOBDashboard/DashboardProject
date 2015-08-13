@@ -16,6 +16,7 @@ response.setDateHeader ("Expires", 0); // prevents caching at the Proxy cache
 <% 
 String x[][] = dashboard.DatabaseManager.permitApplicationReceived(); //pdox-SQL Server DBMS
 String z[][] = dashboard.DatabaseManager.permitIssued(); // hansen-Oracle DBMS
+
 String[] yrIndex= new String[12];
 yrIndex[0] = "Jan";
 yrIndex[1] = "Feb";
@@ -80,32 +81,32 @@ yrIndex[11] = "Dec";
 
 				<script>
 				
+				
 				<%//Java code for splitting the "yyyy/mm" and displaying it as "Mon 'YY"
 				
-				String[] mmYYarray = new String[24];
-				
-				
-				int a = 0;
-				int b = 0;
-				int i = 0;
-				String mon = new String();
-				
-				for(i = 0 ; i < 24; i++){
+					String[] mmYYarray = new String[24];
 					
-					//getting YY
-					a = Integer.parseInt(x[i][2]);
-					a = a - 2000;
 					
-					//getting Mon
-					b = Integer.parseInt(x[i][3]) - 1;
-					mon = yrIndex[b];
+					int a = 0;
+					int b = 0;
+					int i = 0;
+					String mon = new String();
 					
-					mmYYarray[i] = mon + " '" + Integer.toString(a);
-				}
+					for(i = 0 ; i < 24; i++){
+						
+						//getting YY
+						a = Integer.parseInt(x[i][2]);
+						a = a - 2000;
+						
+						//getting Mon
+						b = Integer.parseInt(x[i][3]) - 1;
+						mon = yrIndex[b];
+						
+						mmYYarray[i] = mon + " '" + Integer.toString(a);
+					}
 				
 
-			%>
-			
+				%>
 		
 				//var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
 				var lineChartData = {

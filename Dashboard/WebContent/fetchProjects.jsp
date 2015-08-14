@@ -167,7 +167,7 @@ function ADTstateChanged()
 			if(at.tap[0].HeaderName == "Search Project")
       		{
 				// if only 1 match is found
-      			alert(at.tap[i].Name);
+      			//alert(at.tap[i].Name);
 				if(i == 0)
       			{
 					
@@ -237,12 +237,12 @@ function ADTstateChanged()
 			   	
 				if(i%2 == 0)
 				{
-			   		contentString = '<a style = "background-color: white;" href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
+			   		contentString = '<a style = "color: #FF3399;" href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
 			   		document.getElementById("msgBoard").innerHTML = document.getElementById("msgBoard").innerHTML + contentString + '</a><br>';
 				}
 				else
 				{
-			   		contentString = '<a style = "background-color: #B2B2B2;" href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
+			   		contentString = '<a style = "color: #0066CC;" href=\'http://10.220.30.129:8080/Dashboard/AppDetails.jsp?prj='+at.tap[i].Name +'\' target=\'_blank\')>'+at.tap[i].Name ;
 			   		document.getElementById("msgBoard").innerHTML = document.getElementById("msgBoard").innerHTML + contentString + '</a><br>';
 				}
 			}

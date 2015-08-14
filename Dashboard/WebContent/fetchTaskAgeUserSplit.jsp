@@ -83,7 +83,7 @@ function TaskAgeUserSplitStateChanged()
 				
 				contentString = contentString + 
 							'<tr style = "background-color: white;">' + 
-							'<td style = "align: center; font-size:8pt;"><b>' + at.taskAgeUserSplit[i].userName.substring(2) + '</b></td><td>';
+							'<td style = "align: center; font-size:8pt;">' + at.taskAgeUserSplit[i].userName.substring(2) + '</td><td>';
 								
 				if(at.taskAgeUserSplit[i].ct != "null")
 				{

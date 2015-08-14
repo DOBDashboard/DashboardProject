@@ -1,6 +1,4 @@
-	
-	
-	<%-- Displays the project task details --%>
+<%-- Displays the project task details --%>
 	
 	
 <%@ page contentType="text/html" %>
@@ -17,9 +15,12 @@
 	int totalCount = 0; //total number of days to complete zoning not included 
 	int dobCount = 0;//DOB number of days to complete zoning not included
 	
-	String three;
-	String six;
-	String nine;
+	int dobAndApplicantCombined = 0; // total number of days for dob and its applicant combined
+	int zoningAndApplicantCombined = 0; // total number of days for zoning and its applicant combined
+	int applicantInZoning = 0; // total number of days for applicant in zoning
+	int zoningCount = 0; // total number of days to complete zoning
+	
+			
 %>
 
 
@@ -59,7 +60,10 @@
 	<html>
 	
 		<style>
-		
+		html
+		{
+			background-color: #E3E3E3;
+		}
 		#mainTable tr td
 		{
 			border: 1.5px solid gray;
@@ -76,8 +80,8 @@
 		</style>
 		
 		
-		<table id = "mainTable" align = "center" style = "margin-top:350px">
-			<tr style = "text-align: center; background-color: gray; font-size: 24px;">
+		<table id = "mainTable" align = "center" style = "margin-top:365px">
+			<tr style = "text-align: center; background-color: #B6B6B6; font-size: 24px;">
 				<td colspan = 9 style = "vertical-align: top; "><b><%=col[0][0]%></b></td>
 			</tr>
 			
@@ -95,16 +99,10 @@
 	
 <% 
 			int sumOfCompletedDays = 0;
-
 			
 			int x;
 			for (int j = 0; j < ctr; j++) 
 			{ 	
-				three = col[j][3];
-				six = col[j][6];
-				nine = col[j][9];
-				
-				
 				if(col[j][6] == null)
 				{
 					col[j][6] = "NULL";
@@ -115,11 +113,16 @@
 				{ 
 					ztr = 1;
 %>				
+					<tr>
+						<td style = "content: ' ';" colspan = 9></td>
+					<tr>
+							
 					<tr style = "background-color: black;">
 						<td colspan = 10 style = "color: white; text-align: center;">Zoning</td>
 					</tr>
 <% 
-					if((col[j][6].equalsIgnoreCase("Applicant")) && (col[j][3].equalsIgnoreCase("Pending"))) //if first group in zoning is pending by applicant
+					// if first group in zoning is pending by applicant
+					if((col[j][6].equalsIgnoreCase("Applicant")) && (col[j][3].equalsIgnoreCase("Pending")))
 					{
 						if(col[j][9] != null)
 						{
@@ -193,7 +196,8 @@
 <%
 					}
 				}// end of the big if outside
-				else if((col[j][6].equalsIgnoreCase("Applicant")) && (col[j][3].equalsIgnoreCase("Pending"))) //if task is pending by an Applicant
+				// if task is pending by an Applicant
+				else if((col[j][6].equalsIgnoreCase("Applicant")) && (col[j][3].equalsIgnoreCase("Pending"))) 
 				{
 					if(col[j][9] != null)
 					{
@@ -270,17 +274,34 @@
 			
 			for( int j = 0; j < ctr; j++)
 			{
-				if (!col[j][1].equalsIgnoreCase("ZoningReviewV3"))
+				if (!col[j][1].toLowerCase().contains("zoning"))
 				{
 					if(col[j][6].equalsIgnoreCase("Applicant") && col[j][9] != null )
 					{
 						applicantCount = applicantCount + Integer.parseInt(col[j][9]);
 						totalCount = totalCount + Integer.parseInt(col[j][9]);
+						dobAndApplicantCombined = dobAndApplicantCombined + Integer.parseInt(col[j][9]);
 					}
 					else if(col[j][9] != null)
 					{
 						dobCount = dobCount + Integer.parseInt(col[j][9]);
 						totalCount = totalCount + Integer.parseInt(col[j][9]);		
+						dobAndApplicantCombined = dobAndApplicantCombined + Integer.parseInt(col[j][9]);
+					}
+				}
+				else
+				{
+					if(col[j][9] != null && !col[j][6].equalsIgnoreCase("Applicant"))
+					{
+						zoningCount = zoningCount + Integer.parseInt(col[j][9]);	
+						totalCount = totalCount + Integer.parseInt(col[j][9]);
+						zoningAndApplicantCombined = zoningAndApplicantCombined + Integer.parseInt(col[j][9]);
+					}
+					else if(col[j][9] != null && col[j][6].equalsIgnoreCase("Applicant"))
+					{
+						applicantInZoning = applicantInZoning + Integer.parseInt(col[j][9]);
+						totalCount = totalCount + Integer.parseInt(col[j][9]);
+						zoningAndApplicantCombined = zoningAndApplicantCombined + Integer.parseInt(col[j][9]);
 					}
 				}
 			}
@@ -292,23 +313,21 @@
 	
 		</table>
 		
-		<table  style = "top:0px;  position: absolute;  left: 825px;">
-
-			<tr>
-				
-				<td>	
-					<h4> Total Days to Complete Task:  Applicant vs. DOB </h4>
-					<canvas id="clients" width="300" height="300"></canvas>
+		<table style = "top:0px; position:absolute; background-color: #E3E3E3; left:825px; width: 340px; z-index: -1;">
+			<tr style = "align: center;">
+				<td style = "text-align: center;">	
+					<h4> Overall Statistics</h4>
+					<canvas id="clients" style = "width:100%;" height="300px"></canvas>
 				
 						<script>
 							
 							var barData = {
-							    labels: ['Applicant', 'DOB', 'Total'],
+							    labels: ['DOB Applicant', 'DOB', 'DOB Combined', 'Zoning Applicant', 'Zoning', 'Zoning Combined', 'All Combined'],
 							    datasets: [
 							        {
 							            label: 'Days To Complete',
 							            fillColor: '#382765',
-							            data: [<%=applicantCount%>, <%=dobCount%>, <%=totalCount%>]
+							            data: [<%=applicantCount%>, <%=dobCount%>, <%=dobAndApplicantCombined%>, <%=applicantInZoning%>, <%=zoningCount%>, <%=zoningAndApplicantCombined%>, <%=totalCount%>]
 							        },
 							       
 							    ]
@@ -325,14 +344,6 @@
 					</td> 	
 			</tr>		
 		</table>
-		
-			<script>
-				$(document).ready(function() {
-				var context = document.getElementById('clients').getContext('2d');
-				var clientsChart = new Chart(context).Bar(barData);
-				});							
-			</script>
-		
 	</html>
 	
 <%

@@ -24,7 +24,13 @@ Used for the loading the results seamlessly to the the DIV in the dashboard main
       <%out.println ("{"); %>
       "taskName": "<%=col[j][0]%>",
       "ct": "<%=col[j][1]%>", 
+      "ftn": "<%=col[j][2]%>", 
+      "thirty": "<%=col[j][3]%>", 
+      "fifty": "<%=col[j][4]%>", 
+      "hundred": "<%=col[j][5]%>", 
+      "hplus": "<%=col[j][6]%>", 
       "nameOfClicked": "<%=nameIs%>",
+      "typeOf": "<%="Individual"%>",
        <%if (j < (ctr-1)) {out.println ("},");}  else {out.println ("}");}%>
      <%}%>
      <%out.println ("]"); %>

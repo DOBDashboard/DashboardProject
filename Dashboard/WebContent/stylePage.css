@@ -174,16 +174,14 @@
    	{
    		float: left;
    		padding-left: 2px;
-   		padding-right: 0px;
-   		
    		display: block;	
    	}
 	
 	#messageBoardTable
 	{
-	    width: 235px;
+	    width: 250px;
 	    height : 625px;
-		overflow-x: auto;
+		
 	}
 	
 	
@@ -215,11 +213,11 @@
 		display: block;
 	    background-color: #526652;
 	    color: white;
-	    padding-left: 3px;
-	    padding-top: 2px;
+	    
+	    padding-top: 1px;
 		width:100%;
 	    height: 100px;
-	   
+	   	
 		overflow-y: auto;
 	}
 	

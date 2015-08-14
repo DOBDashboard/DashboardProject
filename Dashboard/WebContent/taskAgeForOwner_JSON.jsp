@@ -25,6 +25,7 @@ Used for the loading the results seamlessly to the the DIV in the dashboard main
       "groupName": "<%=col[j][0]%>",
       "ct": "<%=col[j][1]%>",
       "nameOfClicked": "<%=nameIs%>",
+      "typeOf": "<%="Group"%>",
        <%if (j < (ctr-1)) {out.println ("},");}  else {out.println ("}");}%>
      <%}%>
      <%out.println ("]"); %>

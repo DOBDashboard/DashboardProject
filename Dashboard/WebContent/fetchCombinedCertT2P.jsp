@@ -49,7 +49,7 @@ function T2PCCstateChanged() {
 		{    	    
     	    if (parseInt(at.t2pcc[i].ordr)%2 == 0) 
     	    { 
-    	    	contentString = contentString + "<tr bgcolor='#FFC2A3' title = 'Applicant/' Task'> <td>" ;
+    	    	contentString = contentString + "<tr bgcolor='#FFC2A3' title = 'Applicant Task'> <td>" ;
     	    } 
     	    else 
     	    { 

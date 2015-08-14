@@ -59,9 +59,9 @@ function ownerByTaskAgeStateChanged()
 					contentString = 
 						"<div id = 'taskAgeForOwnerGroupSpanId' style = 'text-align: center; font-size: 14pt;'>Click on the clickable links below to get started!</div>" +
 						"<div>" + 			
-							"<table id = 'innerTable' style = 'outline: overflow-y: auto; height: 100%;thin solid; width: 100%;'>" + 
+							"<table id = 'innerTable' style = 'outline: overflow-y: auto; height: 100%;thin solid; width: 100%; font-size:8pt;'>" + 
 								"<tr style = 'text-align: center;'>" + 
-									"<td style = 'align: center; font-size:8pt;'>" + 
+									"<td style = 'align: center; font-size:8pt;' colspan = 7>" + 
 										"<b>" + at.taskAgeForOwnerGroup[0].nameOfClicked + "</b>" + 
 									"</td>" +
 								"</tr>" + 

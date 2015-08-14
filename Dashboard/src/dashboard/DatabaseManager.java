@@ -1115,7 +1115,7 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 			   stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			   
 			  // 8/12 update
-			   stmt.execute("select z.taskname ownerName, count(*) tasks, " +
+			   stmt.execute("select z.taskname ownerName, count(*) totalTasks, " +
 							"sum(case when z.dif between 0 and 15 then z.ct end ) ftn, sum(case when z.dif between 16 and 30 then z.ct end) thirty , sum(case when z.dif between 31 and 50 then z.ct end) fifty, " + 
 							"sum(case when z.dif between 51 and 100 then z.ct end) hundrd , sum(case when z.dif > 100 then z.ct end) hplus " +
 							"from ( " +
@@ -1159,7 +1159,7 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 			  
 			   rs = stmt.getResultSet(); 
 			   rs.last(); 
-			   projectNameTable = new String [rs.getRow()][2]; 
+			   projectNameTable = new String [rs.getRow()][7]; 
 			   
 			   rs.beforeFirst();
 			   
@@ -1168,7 +1168,13 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 			   while (rs.next())
 			   { 
 				   projectNameTable[i][0] = rs.getString("ownerName");
-				   projectNameTable[i][1] = rs.getString("tasks");
+				   projectNameTable[i][1] = rs.getString("totalTasks");
+				   projectNameTable[i][2] = rs.getString("ftn");
+				   projectNameTable[i][3] = rs.getString("thirty");
+				   projectNameTable[i][4] = rs.getString("fifty");
+				   projectNameTable[i][5] = rs.getString("hundrd");
+				   projectNameTable[i][6] = rs.getString("hplus");
+				   
 				   i++;
 			   }
 		   }
@@ -1525,11 +1531,11 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 				
 				   while (rs.next())
 				   { 
-					   
 					   c[i][0] = rs.getString("dt");
 					   c[i][1] = rs.getString("ct");
 					   c[i][2] = rs.getString("yr");
 					   c[i][3] = rs.getString("m");
+					    
 					   
 					 
 					   i++;
@@ -1610,5 +1616,8 @@ where (a.name like 'Pamela%' or a.name2 like 'Pamela%') and a.dif between 0 and 
 		      return c;
 		       
 		   }
+	   
 
+	  
+	   
 }

@@ -51,7 +51,7 @@ function T2PSPRstateChanged()
 		{    	    
     	    if (parseInt(at.t2pspr[i].ordr)%2 == 0) 
     	    { 
-    	    	contentString = contentString + "<tr bgcolor='#FFD6C2' title = 'Applicant's Task'> <td>" ;
+    	    	contentString = contentString + "<tr bgcolor='#FFD6C2' title = 'Applicant Task'> <td>" ;
     	    } 
     	    else 
     	    { 

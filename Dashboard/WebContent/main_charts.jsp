@@ -30,7 +30,6 @@ yrIndex[8] = "Sept";
 yrIndex[9] = "Oct";
 yrIndex[10] = "Nov";
 yrIndex[11] = "Dec";
-
 %>
 
 <div id = "overallStatisticsDataChartDIV">
@@ -77,10 +76,8 @@ yrIndex[11] = "Dec";
     			<div>
 					<canvas id="canvas" style = "width: 100%; height:200px;"></canvas>
 				</div>
-
-
-				<script>
 				
+				<script>
 				
 				<%//Java code for splitting the "yyyy/mm" and displaying it as "Mon 'YY"
 				
@@ -105,9 +102,8 @@ yrIndex[11] = "Dec";
 						mmYYarray[i] = mon + " '" + Integer.toString(a);
 					}
 				
-
 				%>
-		
+
 				//var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
 				var lineChartData = {
 						labels : [
@@ -150,7 +146,6 @@ yrIndex[11] = "Dec";
 						}
 					]
 				}
-				
 				</script>
 				
 			</td>

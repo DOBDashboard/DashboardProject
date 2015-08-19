@@ -2,9 +2,8 @@
 *For loading the Time to Permit breakdown for self cert projects
 --%>
 
-
-	
 <script type="text/javascript">
+
 var adtHttp;
 var t;
 
@@ -30,9 +29,7 @@ function displayTaskAgeUserSplit(taskname)
 function moveTheSpanNot()
 {
 	console.log("Inside moveTheSpan()...");
-	//alert("Inside moveTheSpanNot()...");
 	
-	//var tooltipSpan = document.getElementById('taskUserSplitSpanId');
 	document.getElementById("taskUserSplitSpanId").style.display = "none"; 	
 }
 
@@ -67,23 +64,32 @@ function TaskAgeUserSplitStateChanged()
 					document.getElementById("msgBoard").style.outline = "thin solid";
 					document.getElementById("msgBoard").style.overflowY = "none";
 					contentString =	
-						"<div id = 'taskUserSplitSpanId' style = 'text-align: center; font-size: 14pt;'>Click on the clickable links below to get started!</div>" +
-						"<div>" + 
-						"<table id = 'innerTable' style = 'overflow-y: auto; height: 100%; outline: thin solid; width: 100%;'>" + 
-							"<tr style = 'text-align: center;'>" + 
-								"<td style = 'align: center; font-size:8pt;' colspan = 7>" + 
-									"<b>" + at.taskAgeUserSplit[0].clickedThis + "</b>" + 
-								"</td>" + 
-							"</tr>" + 
+						
+						"<div id = 'taskUserSplitSpanId' style = 'height: 100px; font-size: 14pt'> Click on the clickable links below to get started!</div>" +
+			
+						
+						"<table id = 'taskbyAgeUserSpanTable' style ='outline: thin solid;'>" + 
+							"<thead>"+
+								'<tr style ="text-align: center"><th style="width: 240px" colspan = 7><b>' + at.taskAgeUserSplit[0].clickedThis + "</b></th></tr>" +
+							"</thead>" +
+							"<thead>" +	
+								"<tr>" + 
+									'<th style="width: 100px">Owner</th>'+ 
+									'<th style="width: 20px">Total</th>'+
+									'<th style="width: 13px">0-15</th>'+
+									'<th style="width: 13px">16-30</th>'+
+									'<th style="width: 13px">31-50</th>'+
+									'<th style="width: 14px">51-100</th>'+
+									'<th style="width: 15px">101+</th>'+ 
+								"</tr>" + 
+							"</thead>" +
 							
-							"<tr>" + 
-								"<td>Owner</td><td>Total</td><td>0-15</td><td>16-30</td><td>31-50</td><td>51-100</td><td>101+</td>" + 
-							"</tr>";
+							"<tbody id = 'taskUserSplitSpanIdBody'>";
 				}
 				
 				contentString = contentString + 
 							'<tr style = "background-color: white;">' + 
-							'<td style = "align: center; font-size:8pt;">' + at.taskAgeUserSplit[i].userName.substring(2) + '</td><td>';
+							'<td style = "align: center; font-size: 8pt, width: 145px;">' + at.taskAgeUserSplit[i].userName.substring(2) + '</td><td style="width: 23px">';
 								
 				if(at.taskAgeUserSplit[i].ct != "null")
 				{
@@ -100,11 +106,10 @@ function TaskAgeUserSplitStateChanged()
     	    			if(i == 0)
     	    			{
     	    				
-    	    				contentString = contentString + '<td>' + 
-						
-							
+    	    				contentString = contentString + '<td style= "width: 14px">' + 
+
 								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-								//	"onmouseout= 'moveTheSpanNot();'" + 
+								 
 									"onClick='displayTaskAgeUserSplitIndividual(\"" + 
 									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
 									"\", \"0-15\");' value='" + 
@@ -115,11 +120,10 @@ function TaskAgeUserSplitStateChanged()
     	    			}
     	    			else
     	    			{
-    	    				contentString = contentString + '<td>' + 
-    						//	"<div id = 'taskUserSplitSpanDiv'>" + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
     							
     								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-    							//		"onmouseout= 'moveTheSpanNot();'" +
+    							
 										"onClick='displayTaskAgeUserSplitIndividual(\"" + 
     									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
     									"\", \"0-15\");' value='" + 
@@ -128,9 +132,7 @@ function TaskAgeUserSplitStateChanged()
     								
     							"</td>"; 
     	    			}
-								
-								
-						
+
     	    			console.log(contentString);
     	    			
     	    			console.log("---Clicked this: " + at.taskAgeUserSplit[i].clickedThis);
@@ -143,11 +145,11 @@ function TaskAgeUserSplitStateChanged()
     	    			if(i == 0)
     	    			{
     	    				
-    	    				contentString = contentString + '<td>' + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
 						
 							
 								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-								//	"onmouseout= 'moveTheSpanNot();'" + 
+								
 									"onClick='displayTaskAgeUserSplitGroup(\"" + 
 									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
 									"\", \"0-15\");' value='" + 
@@ -158,11 +160,10 @@ function TaskAgeUserSplitStateChanged()
     	    			}
     	    			else
     	    			{
-    	    				contentString = contentString + '<td>' + 
-    						//	"<div id = 'taskUserSplitSpanDiv'>" + 
-    							
+    	    				contentString = contentString + '<td style="width: 14px">' + 
+    						
     								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-    							//		"onmouseout= 'moveTheSpanNot();'" +
+    							
 										"onClick='displayTaskAgeUserSplitGroup(\"" + 
     									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
     									"\", \"0-15\");' value='" + 
@@ -188,25 +189,23 @@ function TaskAgeUserSplitStateChanged()
 				}
 				else
 				{
-					contentString = contentString + '<td></td>';
+					contentString = contentString + '<td style="width: 14px"></td>';
 				}
 				
-				//contentString = contentString + '<td>';
 				
 				if(at.taskAgeUserSplit[i].thirty != "null")
 				{
-					//contentString = contentString + at.taskAgeUserSplit[i].thirty;
-					
+
 					if(at.taskAgeUserSplit[i].userName[0] == "P")
     	    		{
     	    			if(i == 0)
     	    			{
     	    				
-    	    				contentString = contentString + '<td>' + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
 						
 							
 								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-								//	"onmouseout= 'moveTheSpanNot();'" + 
+
 									"onClick='displayTaskAgeUserSplitIndividual(\"" + 
 									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
 									"\", \"16-30\");' value='" + 
@@ -217,11 +216,11 @@ function TaskAgeUserSplitStateChanged()
     	    			}
     	    			else
     	    			{
-    	    				contentString = contentString + '<td>' + 
-    						//	"<div id = 'taskUserSplitSpanDiv'>" + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
+ 
     							
     								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-    							//		"onmouseout= 'moveTheSpanNot();'" +
+ 
 										"onClick='displayTaskAgeUserSplitIndividual(\"" + 
     									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
     									"\", \"16-30\");' value='" + 
@@ -246,11 +245,11 @@ function TaskAgeUserSplitStateChanged()
     	    			if(i == 0)
     	    			{
     	    				
-    	    				contentString = contentString + '<td>' + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
 						
 							
 								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-								//	"onmouseout= 'moveTheSpanNot();'" + 
+
 									"onClick='displayTaskAgeUserSplitGroup(\"" + 
 									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
 									"\", \"16-30\");' value='" + 
@@ -261,11 +260,10 @@ function TaskAgeUserSplitStateChanged()
     	    			}
     	    			else
     	    			{
-    	    				contentString = contentString + '<td>' + 
-    						//	"<div id = 'taskUserSplitSpanDiv'>" + 
-    							
+    	    				contentString = contentString + '<td style="width: 14px">' + 
+ 
     								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-    							//		"onmouseout= 'moveTheSpanNot();'" +
+
 										"onClick='displayTaskAgeUserSplitGroup(\"" + 
     									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
     									"\", \"16-30\");' value='" + 
@@ -289,24 +287,22 @@ function TaskAgeUserSplitStateChanged()
 				}
 				else
 				{
-					contentString = contentString + '<td></td>';
+					contentString = contentString + '<td style="width: 14px"></td>';
 				}
-				
-				//contentString = contentString + '<td>';
 				
 				if(at.taskAgeUserSplit[i].fifty != "null")
 				{
-					//contentString = contentString + at.taskAgeUserSplit[i].fifty;
+
 					if(at.taskAgeUserSplit[i].userName[0] == "P")
     	    		{
     	    			if(i == 0)
     	    			{
     	    				
-    	    				contentString = contentString + '<td>' + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
 						
 							
 								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-								//	"onmouseout= 'moveTheSpanNot();'" + 
+
 									"onClick='displayTaskAgeUserSplitIndividual(\"" + 
 									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
 									"\", \"31-50\");' value='" + 
@@ -317,11 +313,10 @@ function TaskAgeUserSplitStateChanged()
     	    			}
     	    			else
     	    			{
-    	    				contentString = contentString + '<td>' + 
-    						//	"<div id = 'taskUserSplitSpanDiv'>" + 
-    							
+    	    				contentString = contentString + '<td style="width: 14px">' + 
+
     								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-    							//		"onmouseout= 'moveTheSpanNot();'" +
+    							
 										"onClick='displayTaskAgeUserSplitIndividual(\"" + 
     									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
     									"\", \"31-50\");' value='" + 
@@ -346,11 +341,11 @@ function TaskAgeUserSplitStateChanged()
     	    			if(i == 0)
     	    			{
     	    				
-    	    				contentString = contentString + '<td>' + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
 						
 							
 								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-								//	"onmouseout= 'moveTheSpanNot();'" + 
+						 
 									"onClick='displayTaskAgeUserSplitGroup(\"" + 
 									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
 									"\", \"31-50\");' value='" + 
@@ -361,11 +356,10 @@ function TaskAgeUserSplitStateChanged()
     	    			}
     	    			else
     	    			{
-    	    				contentString = contentString + '<td>' + 
-    						//	"<div id = 'taskUserSplitSpanDiv'>" + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
     							
     								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-    							//		"onmouseout= 'moveTheSpanNot();'" +
+
 										"onClick='displayTaskAgeUserSplitGroup(\"" + 
     									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
     									"\", \"31-50\");' value='" + 
@@ -392,25 +386,22 @@ function TaskAgeUserSplitStateChanged()
 				}
 				else
 				{
-					contentString = contentString + '<td></td>';
-				}
-				
-				
-				//contentString = contentString + '</td><td>';				
+					contentString = contentString + '<td style="width: 14px"></td>';
+				}			
 				
 				if(at.taskAgeUserSplit[i].hundred != "null")
 				{
-					//contentString = contentString + at.taskAgeUserSplit[i].hundred;
+
 					if(at.taskAgeUserSplit[i].userName[0] == "P")
     	    		{
     	    			if(i == 0)
     	    			{
     	    				
-    	    				contentString = contentString + '<td>' + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
 						
 							
 								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-								//	"onmouseout= 'moveTheSpanNot();'" + 
+ 
 									"onClick='displayTaskAgeUserSplitIndividual(\"" + 
 									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
 									"\", \"51-100\");' value='" + 
@@ -421,11 +412,11 @@ function TaskAgeUserSplitStateChanged()
     	    			}
     	    			else
     	    			{
-    	    				contentString = contentString + '<td>' + 
-    						//	"<div id = 'taskUserSplitSpanDiv'>" + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
+ 
     							
     								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-    							//		"onmouseout= 'moveTheSpanNot();'" +
+
 										"onClick='displayTaskAgeUserSplitIndividual(\"" + 
     									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
     									"\", \"51-100\");' value='" + 
@@ -449,11 +440,11 @@ function TaskAgeUserSplitStateChanged()
     	    			if(i == 0)
     	    			{
     	    				
-    	    				contentString = contentString + '<td>' + 
+    	    				contentString = contentString + '<td style="width: 14px">' + 
 						
 							
 								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-								//	"onmouseout= 'moveTheSpanNot();'" + 
+
 									"onClick='displayTaskAgeUserSplitGroup(\"" + 
 									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
 									"\", \"51-100\");' value='" + 
@@ -464,11 +455,10 @@ function TaskAgeUserSplitStateChanged()
     	    			}
     	    			else
     	    			{
-    	    				contentString = contentString + '<td>' + 
-    						//	"<div id = 'taskUserSplitSpanDiv'>" + 
-    							
+    	    				contentString = contentString + '<td style="width: 14px">' + 
+						
     								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-    							//		"onmouseout= 'moveTheSpanNot();'" +
+
 										"onClick='displayTaskAgeUserSplitGroup(\"" + 
     									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
     									"\", \"51-100\");' value='" + 
@@ -494,24 +484,22 @@ function TaskAgeUserSplitStateChanged()
 				}
 				else
 				{
-					contentString = contentString + '<td></td>';
+					contentString = contentString + '<td style="width: 14px"></td>';
 				}
-				
-				//contentString = contentString + '</td><td>';
 				
 				if(at.taskAgeUserSplit[i].hplus != "null")
 				{
-					//contentString = contentString + at.taskAgeUserSplit[i].hplus;
+
 					if(at.taskAgeUserSplit[i].userName[0] == "P")
     	    		{
     	    			if(i == 0)
     	    			{
     	    				
-    	    				contentString = contentString + '<td>' + 
+    	    				contentString = contentString + '<td style="width: 15px">' + 
 						
 							
 								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-								//	"onmouseout= 'moveTheSpanNot();'" + 
+
 									"onClick='displayTaskAgeUserSplitIndividual(\"" + 
 									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
 									"\", \"101-1000\");' value='" + 
@@ -522,11 +510,10 @@ function TaskAgeUserSplitStateChanged()
     	    			}
     	    			else
     	    			{
-    	    				contentString = contentString + '<td>' + 
-    						//	"<div id = 'taskUserSplitSpanDiv'>" + 
-    							
+    	    				contentString = contentString + '<td style="width: 15px">' + 
+
     								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-    							//		"onmouseout= 'moveTheSpanNot();'" +
+    					
 										"onClick='displayTaskAgeUserSplitIndividual(\"" + 
     									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
     									"\", \"101-1000\");' value='" + 
@@ -550,11 +537,11 @@ function TaskAgeUserSplitStateChanged()
     	    			if(i == 0)
     	    			{
     	    				
-    	    				contentString = contentString + '<td>' + 
+    	    				contentString = contentString + '<td style="width: 15px">' + 
 						
 							
 								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-								//	"onmouseout= 'moveTheSpanNot();'" + 
+
 									"onClick='displayTaskAgeUserSplitGroup(\"" + 
 									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
 									"\", \"101-1000\");' value='" + 
@@ -565,11 +552,10 @@ function TaskAgeUserSplitStateChanged()
     	    			}
     	    			else
     	    			{
-    	    				contentString = contentString + '<td>' + 
-    						//	"<div id = 'taskUserSplitSpanDiv'>" + 
-    							
+    	    				contentString = contentString + '<td style="width: 15px">' + 
+
     								"<label id = 'taskUserSplitSpanDiv' style='cursor: pointer;' " + 
-    							//		"onmouseout= 'moveTheSpanNot();'" +
+    					
 										"onClick='displayTaskAgeUserSplitGroup(\"" + 
     									at.taskAgeUserSplit[i].clickedThis + "\", \"" + at.taskAgeUserSplit[i].userName.substring(2)  + 
     									"\", \"101-1000\");' value='" + 
@@ -595,14 +581,13 @@ function TaskAgeUserSplitStateChanged()
 				}
 				else
 				{
-					contentString = contentString + '<td></td>';
+					contentString = contentString + '<td style="width: 15px"></td>';
 				}
 				
-				//contentString = contentString + '</td></tr>';	
 			}
-		//	document.getElementById("msgBoard").style.height = "75%";
+
 			document.getElementById("msgBoard").innerHTML = contentString + 
-				"</table></div>";
+				"</tbody></table>";
 		}
 	}
 	console.log("Exiting TaskAgeUserSplitStateChanged()");

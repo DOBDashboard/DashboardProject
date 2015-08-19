@@ -8,14 +8,23 @@
 <title>Department of Buildings Dashboard</title>
 
 <link rel = "stylesheet" href = "stylePage.css">
-
 <link rel = "icon" href = "img/logo.ico">
 <link rel = "shortcut icon" href="img/logo.ico">
 
-<script type = "text/javascript" src = "jquery-1.11.3.js"></script>
 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> 
+<!--
+// outdated 
+<script type = "text/javascript" src = "jquery-1.11.3.js"></script>
+-->
+
+<!-- bxSlider Javascript file -->
+<script src="img/jquery.bxslider.js"></script>
+<!-- bxSlider CSS file -->
+<link href="img/jquery.bxslider.css" rel="stylesheet" />
 
 <script src="Chart.js"></script> 
+
 
 
 <script>
@@ -132,14 +141,28 @@
 	        table3.style.display = 'none';
 	        picture.style.display = 'block';
 			document.getElementById("msgBoard").innerHTML = '';
-	        document.getElementById("taskCountTableButton").checked = false;
+			document.getElementById("msgBoard2").innerHTML = '';
+			document.getElementById("taskCountTableButton").checked = false;
             document.getElementById("taskByAgeTableButton").checked = false;
             document.getElementById("ownerByTaskAgeTableButton").checked = false;
 	    }
 		else if(sumOfAllTableSelected == false && taskSplitByAgeTableSelected == false && ownerByTaskAgeTableButton == false) // first load
 	   {
-		   console.log("Inside help_button_clicked()...if()");
-		   table1.style.display = 'none';
+			$('.bxslider').bxSlider({
+				   speed: 1000,
+				   mode: 'horizontal',
+				   captions: true,
+				   infiniteLoop: false,
+				   hideControlOnEnd: true,
+				   nextSelector: '#slider-next',
+				   prevSelector: '#slider-prev',
+				   nextText: 'Next',
+				   prevText: 'Back'
+				   //pager: false
+				 });
+			
+			console.log("Inside help_button_clicked()...if()");
+		   	table1.style.display = 'none';
 	        table2.style.display = 'none'; 
 	        table3.style.display = 'none';
 	        picture.style.display = 'block';
@@ -150,7 +173,7 @@
 	   }
 	   else
 		{
-		   ; // it shouldn't get here
+		   alert("Inside help_button_selected();"); // it shouldn't get here
 		}
 	   console.log("Exiting help_button_clicked()");
 	}
@@ -364,6 +387,8 @@
     application.setAttribute("hitCounter", hitsCount);
 */
 %>
+	
+
 	<tr style = "background-color: #FFF0E0;">
 		<td>
 			<p style = "text-align: center;">
@@ -387,9 +412,9 @@
 		$('#permitApplicationVsPermitIssuedChartButton').click();
 	   $('#table3Button').click();
 	   $('#helpIconButton').click();
-	   
+		  
 	   $('#loading').hide();
-		});	
+	});	
 	/*
 	$('#showMoreH7Button').click(function() {
 		var context = document.getElementById('canvasTop').getContext('2d');

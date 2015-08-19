@@ -160,7 +160,48 @@ $('#chartTable').on('load', function(){
 		<tr>
 			<td colspan = 2>	
 				<div id = "ownerTutorialPictureDIV">
+					<ul class="bxslider" style = "padding:0; CELLSPACING: 0;">
+					   <li>
+					   		<img src="img/stepOne.png" style="width:100%; height:380px;">
+					  		<div>
+					  			<span>To Get Started: Click on any of those buttons pointed by blue arrow.</span>
+					   		</div>
+					   </li>
+					   
+					   <li>
+					   		<img src="img/stepFirstButton.png" style="width:100%; height:380px;">
+					  		<div>
+					  			<span>Task Count: Gives total number of all the task counts in the current Queue.</span>
+			  		   			<br>
+			  		   			<span><i>NOTE: There are no clickable names or numbers.</i></span>
+			  		   		</div>
+			  		   </li>
+			  		   
+			  		   <li>
+			  		   		<img src="img/stepSecondButton.png" style="width:100%; height:380px;">
+			  		   		<div>
+			  		   			<span>Task by Age: Gives total number of all tasks along with the detailed breakdown.</span>
+			  		   		   	<br>
+			  		   		   	<span><i>NOTE: All the columns pointed by green arrow has all the displayed numbers clickable to see detailed breakdown.</i></span>
+			  		   		</div>
+			  		   </li>
+			  		   
+			  		   <li>
+			  		   		<img src="img/stepThirdButton.png" style="width:100%; height:380px;">
+			  		   		<div>
+			  		   			<span>Owner by Task Age: Gives total number of all tasks for their respective owner along with the detailed breakdown.</span>
+			  		   			<br>
+			  		   			<span><i>NOTE: All the columns pointed by green arrow has all the displayed numbers clickable to see detailed breakdown.</i></span>
+			  		   		</div>	
+			  		   	</li>   
+					</ul>
+					
+					
+					
+					<p style = "text-align: center;"><span id="slider-prev"></span> | <span id="slider-next"></span></p>
+					<!-- 
 					<img src="img/tutorial.PNG" alt="HowToNavigateThisTable" style=" width:400px; height:525px; ">		
+					-->
 				</div>
 				
 				<div id = "taskCountDiv">

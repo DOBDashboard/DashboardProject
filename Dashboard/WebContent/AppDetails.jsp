@@ -62,7 +62,14 @@
 		<style>
 		html
 		{
-			background-color: #E3E3E3;
+		/*	background-color: #E3E3E3;
+	*/
+		background-image: url(img/cityhall.jpg);
+		margin: 0 auto;
+		width: 100%;
+		background-attachment: fixed;
+		background-size: cover;
+		
 		}
 		#mainTable tr td
 		{
@@ -72,6 +79,19 @@
 			font-family: "Times New Roman", Times, serif;
 		}
 		
+		#outerMainTable
+		{
+			width : 1100px;	
+			border: 5px solid #1A6680;
+			border-radius: 5px;
+			font-family: "Times New Roman", Times, serif;
+			background-color: #FFF0E0;
+			align: center;
+			CELLSPACING: 0;
+			padding: 0px;
+			opacity: .97;
+		}
+		
 		#mainTable
 		{
 			background-color: #E3E3E3;
@@ -79,13 +99,26 @@
 		}
 		</style>
 		
+		<table id = "outerMainTable"align = "center">
 		
-		<table id = "mainTable" align = "center" style = "margin-top:365px">
-			<tr style = "text-align: center; background-color: #B6B6B6; font-size: 24px;">
-				<td colspan = 9 style = "vertical-align: top; "><b><%=col[0][0]%></b></td>
-			</tr>
-			
-			 <tr style = "background-color: gray;"> 
+		<tr style = "text-align: center; background-color: #CCC0B3; font-size: 24px;">
+			<td colspan = 9 style = "vertical-align: top; "><b><%=col[0][0]%></b></td>
+		</tr>
+		
+		<tr style = "height: 5px; width: 100%;">
+		<td style = "content:' ';  display:block; border:1px solid #1A6680; background-color: #1A6680;"></td>
+	</tr>
+	
+	<tr>
+		<td style = "content: ' ';"></td>
+	<tr>
+		
+		<tr>
+		<td>
+		<div>
+		<table id = "mainTable" align = "center" style = "margin-top:365px; width: 99%;">
+					
+			 <tr style = "background-color: #CCC0B3;"> 
 				 <td><b>FlowInstanceName</b></td>
 				 <td><b>TaskName</b></td>
 				 <td><b>TaskStatus</b></td>
@@ -129,7 +162,7 @@
 							sumOfCompletedDays = Integer.parseInt(col[j][9]) + sumOfCompletedDays;
 						}
 %>
-						<tr style = "background-color: #1E90FF; color:#b22424;">
+						<tr style = "background-color: #8EC8FF; color:#b22424;">
 							 <td><%=col[j][1]%> </td>
 							 <td><%=col[j][2]%></td>
 							 <td><%=col[j][3]%></td>
@@ -149,7 +182,7 @@
 							sumOfCompletedDays = Integer.parseInt(col[j][9]) + sumOfCompletedDays;
 						}
 %>
-						<tr style = "background-color: #1E90FF;">
+						<tr style = "background-color: #8EC8FF;">
 						
 							 <td><%=col[j][1]%> </td>
 							 <td><%=col[j][2]%></td>
@@ -204,7 +237,7 @@
 						sumOfCompletedDays = Integer.parseInt(col[j][9]) + sumOfCompletedDays;
 					}
 %>
-					<tr style = "background-color: #1E90FF; color:#b22424;">
+					<tr style = "background-color: #8EC8FF; color:#b22424;">
 						 <td><%=col[j][1]%> </td>
 						 <td><%=col[j][2]%></td>
 						 <td><%=col[j][3]%></td>
@@ -224,7 +257,7 @@
 						sumOfCompletedDays = Integer.parseInt(col[j][9]) + sumOfCompletedDays;
 					}
 %>
-				<tr style = "background-color: #1E90FF;">
+				<tr style = "background-color: #8EC8FF;">
 				
 					 <td><%=col[j][1]%> </td>
 					 <td><%=col[j][2]%></td>
@@ -313,21 +346,21 @@
 	
 		</table>
 		
-		<table style = "top:0px; position:absolute; background-color: #E3E3E3; left:825px; width: 340px; z-index: -1;">
+		<table align = "left" style = "top:60px; position:absolute; background-color: #FFF0E0;  width: 340px; z-index: 10;">
 			<tr style = "align: center;">
 				<td style = "text-align: center;">	
-					<h4> Overall Statistics</h4>
-					<canvas id="clients" style = "width:100%;" height="300px"></canvas>
+					<h4>Total Days Taken by Group</h4>
+					<canvas id="clients" style = "width:100%;" height= "280px"></canvas>
 				
 						<script>
 							
 							var barData = {
-							    labels: ['DOB Applicant', 'DOB', 'DOB Combined', 'Zoning Applicant', 'Zoning', 'Zoning Combined', 'All Combined'],
+							    labels: ['Applicant', 'DOB', 'DOB Total Time', 'Zoning'],
 							    datasets: [
 							        {
 							            label: 'Days To Complete',
 							            fillColor: '#382765',
-							            data: [<%=applicantCount%>, <%=dobCount%>, <%=dobAndApplicantCombined%>, <%=applicantInZoning%>, <%=zoningCount%>, <%=zoningAndApplicantCombined%>, <%=totalCount%>]
+							            data: [<%=applicantCount%>, <%=dobCount%>,<%= applicantCount + dobCount%>, <%=zoningCount%>]
 							        },
 							       
 							    ]
@@ -342,7 +375,14 @@
 						</script>
 						
 					</td> 	
-			</tr>		
+			</tr>
+			
+					
+		</table>
+		
+		</div>
+		</td>
+		</tr>
 		</table>
 	</html>
 	
